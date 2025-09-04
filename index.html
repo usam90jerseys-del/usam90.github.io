@@ -1382,56 +1382,13 @@ function generateOrderId() {
         // Sample product data with real image URLs
         const products = {
     jerseys: [
-        { 
-            id: 1, 
-            name: "FC Barcelona Home Jersey 25/26", 
-            price: 7499, 
-            image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg",
-            sizes: { S: 5, M: 3, L: 8, XL: 2 } // Add stock for each size
-        },
-        { 
-            id: 2, 
-            name: "Real Madrid Away Jersey 25/26", 
-            price: 7099, 
-            image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg",
-            sizes: { S: 4, M: 6, L: 1, XL: 0 } // XL out of stock
-        },
-        { 
-            id: 3, 
-            name: "Manchester United Home 25/26", 
-            price: 6699, 
-            image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg",
-            sizes: { S: 2, M: 0, L: 5, XL: 3 } // M out of stock
-        },
-        { 
-            id: 4, 
-            name: "Liverpool FC Home 25/26", 
-            price: 6899, 
-            image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594",
-            sizes: { S: 3, M: 2, L: 0, XL: 0 } // L and XL out of stock (as requested)
-        },
-        { 
-            id: 5, 
-            name: "Bayern Munich Home 25/26", 
-            price: 7199, 
-            image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197",
-            sizes: { S: 1, M: 4, L: 2, XL: 1 }
-        },
-        { 
-            id: 6, 
-            name: "AC Milan Home 25/26", 
-            price: 6899, 
-            image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp",
-            sizes: { S: 0, M: 3, L: 0, XL: 4 } // S and L out of stock
-        },
-        { 
-            id: 7, 
-            name: "Chelsea FC Home Jersey 25/26", 
-            price: 6999, 
-            image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg",
-            sizes: { S: 2, M: 1, L: 0, XL: 0 } // L and XL out of stock (as requested)
-        },
-        // ... keep the rest of your jerseys with sizes property
+        { id: 1, name: "FC Barcelona Home Jersey 25/26", price: 7499, image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg", sizes: { S: 5, M: 3, L: 8, XL: 2 }  },
+        { id: 2, name: "Real Madrid Away Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg", sizes: { S: 4, M: 6, L: 1, XL: 0 }  },
+        { id: 3, name: "Manchester United Home 25/26", price: 6699, image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg", sizes: { S: 2, M: 0, L: 5, XL: 3 }  },
+        { id: 4, name: "Liverpool FC Home 25/26", price: 6899, image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594", sizes: { S: 3, M: 2, L: 0, XL: 0 } },
+        { id: 5, name: "Bayern Munich Home 25/26", price: 7199, image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197", sizes: { S: 1, M: 4, L: 2, XL: 1 }},
+        { id: 6, name: "AC Milan Home 25/26", price: 6899, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp", sizes: { S: 0, M: 3, L: 0, XL: 4 }},
+        { id: 7, name: "Chelsea FC Home Jersey 25/26", price: 6999, image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg",sizes: { S: 2, M: 1, L: 0, XL: 0 } },
         { id: 8, name: "Paris Saint-Germain Home 25/26", price: 7299, image: "https://clubjerseys.in/wp-content/uploads/2025/06/02eb2c89-bd63.webp", sizes: { S: 5, M: 3, L: 2, XL: 1 } },
         { id: 9, name: "Juventus Home Jersey 25/26", price: 6799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ3VChIxp6mYUUloMfsYGIgfprKXTKHBtYHQ&s", sizes: { S: 3, M: 4, L: 1, XL: 2 } },
         { id: 10, name: "Arsenal Home Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-Arsenal-Home-S-4XL-8-600x600-1.webp", sizes: { S: 2, M: 0, L: 3, XL: 0 } },
@@ -1441,16 +1398,16 @@ function generateOrderId() {
         { id: 14, name: "Tottenham Hotspur Home Jersey 25/26", price: 6999, image: "https://i0.wp.com/www.copycatz.in/wp-content/uploads/2025/06/Tottenham_Hotspur_Home_25_26_Season-player.jpg?fit=1560%2C1600&ssl=1", sizes: { S: 2, M: 0, L: 0, XL: 4 } }
     ],
     boots: [
-        { id: 7, name: "Nike Mercurial Vapor", price: 20999, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600", inStock: false },
-        { id: 8, name: "Adidas Predator", price: 19299, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=600", inStock: false },
-        { id: 9, name: "Puma Future", price: 18499, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ4zh0K63uZTJDxoFFY-tDmOv9li4xUXf087SkbkrX9an2DERZIYwe7f-wPCVqM7vxttSeMPdalYQzlsECuPanv0s9u6dx76NaRU-OxaFqjHFZeQGf0TxKSMvYR0VwLCswvIouWvA&usqp=CAc", inStock: false },
-        { id: 10, name: "Puma King Platinum", price: 16799, image: "https://m.media-amazon.com/images/I/51UFOmNWAbL._UY1000_.jpg", inStock: false }
+        { id: 1, name: "Nike Mercurial Vapor", price: 20999, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600", inStock: false },
+        { id: 2, name: "Adidas Predator", price: 19299, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=600", inStock: false },
+        { id: 3, name: "Puma Future", price: 18499, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ4zh0K63uZTJDxoFFY-tDmOv9li4xUXf087SkbkrX9an2DERZIYwe7f-wPCVqM7vxttSeMPdalYQzlsECuPanv0s9u6dx76NaRU-OxaFqjHFZeQGf0TxKSMvYR0VwLCswvIouWvA&usqp=CAc", inStock: false },
+        { id: 4, name: "Puma King Platinum", price: 16799, image: "https://m.media-amazon.com/images/I/51UFOmNWAbL._UY1000_.jpg", inStock: false }
     ],
     kits: [ 
-        { id: 11, name: "Training Kit Pro", price: 10999, image: "https://m.media-amazon.com/images/I/41BE1nX8KkL.jpg", inStock: false },
-        { id: 12, name: "Goalkeeper Kit", price: 12599, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRRRmlbuOoMO58rDLcUIlKa_Mo9ijK9xFvw4NKw3tWELA0NJY751bmgHlBghDBq8HLw8omXiYCdHiQQyRUMXZrQ8MYnKAOC45mvaHU9gGYZyZlgXUAHPBn3Jw", inStock: false },
-        { id: 13, name: "Warm-Up Suit", price: 13499, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRt0ki3ypF7jfTM6F1LrFlfZ8M5tx3-VtPKbnZ4eRcI4CjLr2IAMCZzhAL1bW464SF2DUX723yDrhcH8f1h3MAVQ93EWXs5r5Vnj7yJ4mg", inStock: false },
-        { id: 14, name: "Team Training Set", price: 16799, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ9TTbSG8toPCuFgyMesd0Jn8QFu6GmnKRMMZlXcQF5pi8TrTzR2SFAaOytE2B47_KLSCWxQxUtkcTW9NrlCFhPFF_eJQP_u3aG4L1ai9yURMAxZIPZkQUg", inStock: false }
+        { id: 1, name: "Training Kit Pro", price: 10999, image: "https://m.media-amazon.com/images/I/41BE1nX8KkL.jpg", inStock: false },
+        { id: 2, name: "Goalkeeper Kit", price: 12599, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRRRmlbuOoMO58rDLcUIlKa_Mo9ijK9xFvw4NKw3tWELA0NJY751bmgHlBghDBq8HLw8omXiYCdHiQQyRUMXZrQ8MYnKAOC45mvaHU9gGYZyZlgXUAHPBn3Jw", inStock: false },
+        { id: 3, name: "Warm-Up Suit", price: 13499, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRt0ki3ypF7jfTM6F1LrFlfZ8M5tx3-VtPKbnZ4eRcI4CjLr2IAMCZzhAL1bW464SF2DUX723yDrhcH8f1h3MAVQ93EWXs5r5Vnj7yJ4mg", inStock: false },
+        { id: 4, name: "Team Training Set", price: 16799, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ9TTbSG8toPCuFgyMesd0Jn8QFu6GmnKRMMZlXcQF5pi8TrTzR2SFAaOytE2B47_KLSCWxQxUtkcTW9NrlCFhPFF_eJQP_u3aG4L1ai9yURMAxZIPZkQUg", inStock: false }
     ]
 };
 // Add this function to format Indian currency with comma separators
