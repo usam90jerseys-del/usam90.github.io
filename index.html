@@ -1378,38 +1378,49 @@ function generateOrderId() {
             }, 5000);
         }
 
-                // E-COMMERCE FUNCTIONALITY
+// E-COMMERCE FUNCTIONALITY
         // Sample product data with real image URLs
         const products = {
-    jerseys: [
-        { id: 1, name: "FC Barcelona Home Jersey 25/26", price: 7499, image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg", sizes: { S: 5, M: 3, L: 8, XL: 2, XXL: 1  }  },
-        { id: 2, name: "Real Madrid Away Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg", sizes: { S: 4, M: 6, L: 1, XL: 0, XXL: 1 }  },
-        { id: 3, name: "Manchester United Home 25/26", price: 6699, image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg", sizes: { S: 2, M: 0, L: 5, XL: 3, XXL: 1 }  },
-        { id: 4, name: "Liverpool FC Home 25/26", price: 6899, image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594", sizes: { S: 3, M: 2, L: 0, XL: 0, XXL: 1 } },
-        { id: 5, name: "Bayern Munich Home 25/26", price: 7199, image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197", sizes: { S: 1, M: 4, L: 2, XL: 1, XXL: 1 }},
-        { id: 6, name: "AC Milan Home 25/26", price: 6899, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp", sizes: { S: 0, M: 3, L: 0, XL: 4, XXL: 1 }},
-        { id: 7, name: "Chelsea FC Home Jersey 25/26", price: 6999, image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg",sizes: { S: 2, M: 1, L: 0, XL: 0, XXL: 1 } },
-        { id: 8, name: "Paris Saint-Germain Home 25/26", price: 7299, image: "https://clubjerseys.in/wp-content/uploads/2025/06/02eb2c89-bd63.webp", sizes: { S: 5, M: 3, L: 2, XL: 1, XXL: 1 } },
-        { id: 9, name: "Juventus Home Jersey 25/26", price: 6799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ3VChIxp6mYUUloMfsYGIgfprKXTKHBtYHQ&s", sizes: { S: 3, M: 4, L: 1, XL: 2, XXL: 1 } },
-        { id: 10, name: "Arsenal Home Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-Arsenal-Home-S-4XL-8-600x600-1.webp", sizes: { S: 2, M: 0, L: 3, XL: 0, XXL: 1 } },
-        { id: 11, name: "Inter Milan Home Jersey 25/26", price: 6899, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy4T8lWW-wLtGaO6qMmMJ7cgtokYq6KusPwQ&s", sizes: { S: 1, M: 2, L: 4, XL: 1, XXL: 1 } },
-        { id: 12, name: "Atletico Madrid Home Jersey 25/26", price: 6699, image: "https://fulltimestore.in/cdn/shop/files/37f1ba77.jpg?v=1749159619&width=800", sizes: { S: 0, M: 3, L: 2, XL: 0, XXL: 1 } },
-        { id: 13, name: "Borussia Dortmund Home Jersey 25/26", price: 6799, image: "https://footballprestige.com/cdn/shop/files/2526-borussia-dortmund-home-kit-footballprestigecom-2025-premium-quality-568174.jpg?v=1744917325&width=2048", sizes: { S: 4, M: 2, L: 1, XL: 3, XXL: 1 } },
-        { id: 14, name: "Tottenham Hotspur Home Jersey 25/26", price: 6999, image: "https://i0.wp.com/www.copycatz.in/wp-content/uploads/2025/06/Tottenham_Hotspur_Home_25_26_Season-player.jpg?fit=1560%2C1600&ssl=1", sizes: { S: 2, M: 0, L: 0, XL: 4, XXL: 1 } }
-    ],
-    boots: [
-        { id: 1, name: "Nike Mercurial Vapor", price: 20999, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600", inStock: false },
-        { id: 2, name: "Adidas Predator", price: 19299, image: "https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?auto=format&fit=crop&q=80&w=600", inStock: false },
-        { id: 3, name: "Puma Future", price: 18499, image: "https://encrypted-tbn0.gstatic.com/shopping?q=tbn:ANd9GcQ4zh0K63uZTJDxoFFY-tDmOv9li4xUXf087SkbkrX9an2DERZIYwe7f-wPCVqM7vxttSeMPdalYQzlsECuPanv0s9u6dx76NaRU-OxaFqjHFZeQGf0TxKSMvYR0VwLCswvIouWvA&usqp=CAc", inStock: false },
-        { id: 4, name: "Puma King Platinum", price: 16799, image: "https://m.media-amazon.com/images/I/51UFOmNWAbL._UY1000_.jpg", inStock: false }
-    ],
-    kits: [ 
-        { id: 1, name: "Liverpool Home Kit 2023/24 (Jersey+Shorts)", price: 699, image: "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045", sizes: { S: 2, M: 0, L: 1, XL: 0, XXL: 1 } },
-        { id: 2, name: "Goalkeeper Kit", price: 12599, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRRRmlbuOoMO58rDLcUIlKa_Mo9ijK9xFvw4NKw3tWELA0NJY751bmgHlBghDBq8HLw8omXiYCdHiQQyRUMXZrQ8MYnKAOC45mvaHU9gGYZyZlgXUAHPBn3Jw", inStock: false },
-        { id: 3, name: "Warm-Up Suit", price: 13499, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRt0ki3ypF7jfTM6F1LrFlfZ8M5tx3-VtPKbnZ4eRcI4CjLr2IAMCZzhAL1bW464SF2DUX723yDrhcH8f1h3MAVQ93EWXs5r5Vnj7yJ4mg", inStock: false },
-        { id: 4, name: "Team Training Set", price: 16799, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ9TTbSG8toPCuFgyMesd0Jn8QFu6GmnKRMMZlXcQF5pi8TrTzR2SFAaOytE2B47_KLSCWxQxUtkcTW9NrlCFhPFF_eJQP_u3aG4L1ai9yURMAxZIPZkQUg", inStock: false }
-    ]
-};
+            jerseys: [
+                { 
+                  id: 1, 
+                  name: "Ronaldo 7 - Al Nassr Home 2023/24 - Master Quality", 
+                  price: 999, 
+                  image: "https://indiansoccermart.in/cdn/shop/files/10b6d1e397ba64d48bd905a1a3ff7d27.png-z-621_621_f-webp_1024x1024.webp?v=1692695058", 
+                  sizes: { S: 4, M: 2, L: 4, XL: 2, XXL: 2  } 
+                }
+
+                            ],
+            boots: [
+                
+            ],
+            kits: [ 
+                { 
+                  id: 1, 
+                  name: "Liverpool Home Kit 2023/24 (Jersey+Shorts)", 
+                  price: 699, 
+                  image: "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045", 
+                  sizes: { S: 2, M: 0, L: 1, XL: 0, XXL: 0 } 
+                },
+
+                { 
+                  id: 2, 
+                  name: "Venezia Home kit 2023/24 (Jersey+Shorts)", 
+                  price: 649, 
+                  image: "https://indiansoccermart.in/cdn/shop/files/IMG-9751_1024x1024.png?v=1722886570",
+                  sizes: { S: 0, M: 1, L: 0, XL: 0, XXL: 0 }
+                },
+
+                { 
+                  id: 3, 
+                  name: "Miami Home Kit 2023/24(Jersey+Shorts)", 
+                  price: 649, 
+                  image: "https://indiansoccermart.in/cdn/shop/files/Inter-Miami-Home-Kids-Jersey-With-Shorts-2023-24_1024x1024.jpg?v=1716987838", 
+                  sizes: { S: 0, M: 0, L: 0, XL: 19, XXL: 0 }
+                }
+            ]
+        };
+
 // Add this function to format Indian currency with comma separators
 function formatIndianCurrency(amount) {
     // Convert to string and split into whole and decimal parts
@@ -1796,125 +1807,157 @@ if (sectionId === 'jerseys' || sectionId === 'kits') {
 }
             
             // Add event listeners to add to cart buttons
-            const addToCartButtons = container.querySelectorAll('.add-to-cart:not([disabled])');
-            addToCartButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const productId = parseInt(e.target.getAttribute('data-id'));
-                    const section = e.target.getAttribute('data-section');
-                    let selectedSize = null;
-                    
-                    if (section === 'jerseys' || section === 'kits') {
-                        const selectedButton = e.target.parentElement.querySelector('.size-btn.selected');
-                        if (!selectedButton) {
-                            alert('Please select a size');
-                            return;
-                        }
-                        selectedSize = selectedButton.textContent;
-                    }
-                    
-                    addToCart(productId, section, selectedSize);
-                });
-            });
+const addToCartButtons = container.querySelectorAll('.add-to-cart:not([disabled])');
+addToCartButtons.forEach(button => {
+    button.addEventListener('click', (e) => {
+        const productId = parseInt(e.target.getAttribute('data-id'));
+        const section = e.target.getAttribute('data-section');
+        let selectedSize = null;
+        
+        if (section === 'jerseys' || section === 'kits') {
+            const selectedButton = e.target.parentElement.querySelector('.size-btn.selected');
+            if (!selectedButton) {
+                alert('Please select a size');
+                return;
+            }
+            selectedSize = selectedButton.textContent;
+        }
+        
+        addToCart(productId, section, selectedSize);
+    });
+});
         }
 
-        // Add product to cart
-        function addToCart(productId, section, size) {
-            let product;
+// Add product to cart
+function addToCart(productId, section, size) {
+    let product;
+    
+    if (section === 'jerseys') product = products.jerseys.find(p => p.id === productId);
+    else if (section === 'boots') product = products.boots.find(p => p.id === productId);
+    else if (section === 'kits') product = products.kits.find(p => p.id === productId);
+    
+    if (product) {
+        // Check if size is out of stock (for jerseys and kits)
+        if ((section === 'jerseys' || section === 'kits') && size && product.sizes) {
+            const currentStock = product.sizes[size];
             
-            if (section === 'jerseys') product = products.jerseys.find(p => p.id === productId);
-            else if (section === 'boots') product = products.boots.find(p => p.id === productId);
-            else if (section === 'kits') product = products.kits.find(p => p.id === productId);
+            if (currentStock === 0) {
+                alert(`Sorry, size ${size} is out of stock!`);
+                return;
+            }
             
-            if (product) {
-        // Check if size is out of stock (for jerseys only)
-        if ((section === 'jerseys' || section === 'kits') && size && product.sizes && product.sizes[size] === 0) {
-            alert(`Sorry, size ${size} is out of stock!`);
-            return;
+            // Check if we already have this item in cart
+            const existingItem = cart.find(item => item.id === productId && item.size === size);
+            
+            if (existingItem) {
+                // Check if adding one more would exceed available stock
+                if (existingItem.quantity >= currentStock) {
+                    alert(`Sorry, only ${currentStock} items available in size ${size}!`);
+                    return;
+                }
+            }
         }
         
         const existingItem = cart.find(item => item.id === productId && item.size === size);
         
-                if (existingItem) {
-                    existingItem.quantity += 1;
-                } else {
-                    cart.push({
-    ...product,
-    size: size,
-    section: section, // Add this line to store the section
-    quantity: 1
-});
-                }
-                
-                updateCart();
-                
-                // Save cart to Firestore if user is logged in
-                if (auth.currentUser) {
-                    saveCartToFirestore(auth.currentUser.uid, cart);
-                }
-            }
-        }
-
-        // Update cart UI
-        function updateCart() {
-            cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
-            
-            cartItems.innerHTML = '';
-            let total = 0;
-            
-            cart.forEach(item => {
-                const cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.innerHTML = `
-                    <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-                    <div class="cart-item-details">
-                        <h4 class="cart-item-title">${item.name}</h4>
-                                        <p class="cart-item-price">${formatIndianCurrency(item.price)} x ${item.quantity}</p>
-                        ${item.size ? `<p>Size: ${item.size}</p>` : ''}
-${item.size && (item.section === 'jerseys' || item.section === 'kits') ? `<p style="color: #10b981; font-size: 12px;">In Stock: ${products[item.section].find(p => p.id === item.id)?.sizes[item.size] || 0}</p>` : ''}
-                    </div>
-                    <button class="remove-item" data-id="${item.id}" data-size="${item.size}">
-                        <i class="fas fa-trash"></i>
-                    </button>
-                `;
-                cartItems.appendChild(cartItem);
-                
-                total += item.price * item.quantity;
-            });
-            
-            cartTotal.textContent = total.toFixed(2);
-            
-            // Add event listeners to remove buttons
-            const removeButtons = cartItems.querySelectorAll('.remove-item');
-            removeButtons.forEach(button => {
-                button.addEventListener('click', (e) => {
-                    const id = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
-                    const size = e.target.closest('.remove-item').getAttribute('data-size');
-                    removeFromCart(id, size);
-                });
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({
+                ...product,
+                size: size,
+                section: section, // Store the section for reference
+                quantity: 1
             });
         }
+        
+        updateCart();
+        
+        // Save cart to Firestore if user is logged in
+        if (auth.currentUser) {
+            saveCartToFirestore(auth.currentUser.uid, cart);
+        }
+    }
+}
+
+// Update cart UI
+function updateCart() {
+    cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+    
+    cartItems.innerHTML = '';
+    let total = 0;
+    
+    cart.forEach(item => {
+        const cartItem = document.createElement('div');
+        cartItem.className = 'cart-item';
+        
+        cartItem.innerHTML = `
+            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+            <div class="cart-item-details">
+                <h4 class="cart-item-title">${item.name}</h4>
+                <p class="cart-item-price">${formatIndianCurrency(item.price)} x ${item.quantity}</p>
+                ${item.size ? `<p>Size: ${item.size}</p>` : ''}
+            </div>
+            <button class="remove-item" data-id="${item.id}" data-size="${item.size}">
+                <i class="fas fa-trash"></i>
+            </button>
+        `;
+        cartItems.appendChild(cartItem);
+        
+        total += item.price * item.quantity;
+    });
+    
+    cartTotal.textContent = total.toFixed(2);
+    
+    // Add event listeners to remove buttons
+    const removeButtons = cartItems.querySelectorAll('.remove-item');
+    removeButtons.forEach(button => {
+        button.addEventListener('click', (e) => {
+            const id = parseInt(e.target.closest('.remove-item').getAttribute('data-id'));
+            const size = e.target.closest('.remove-item').getAttribute('data-size');
+            removeFromCart(id, size);
+        });
+    });
+}
 
 
 
-        // Remove item from cart
-        function removeFromCart(productId, size) {
-            const itemIndex = cart.findIndex(item => item.id === productId && item.size === size);
-            
-            if (itemIndex !== -1) {
-                if (cart[itemIndex].quantity > 1) {
-                    cart[itemIndex].quantity -= 1;
-                } else {
-                    cart.splice(itemIndex, 1);
-                }
-                
-                updateCart();
-                
-                // Save cart to Firestore if user is logged in
-                if (auth.currentUser) {
-                    saveCartToFirestore(auth.currentUser.uid, cart);
+ // Remove item from cart
+function removeFromCart(productId, size) {
+    const itemIndex = cart.findIndex(item => item.id === productId && item.size === size);
+    
+    if (itemIndex !== -1) {
+        const removedItem = cart[itemIndex]; // Get the item before modifying cart
+        
+        if (cart[itemIndex].quantity > 1) {
+            cart[itemIndex].quantity -= 1;
+            // Increment stock back if quantity is reduced
+            if ((removedItem.section === 'jerseys' || removedItem.section === 'kits') && removedItem.size) {
+                const originalProductInGlobal = products[removedItem.section].find(p => p.id === removedItem.id);
+                if (originalProductInGlobal && originalProductInGlobal.sizes[removedItem.size] !== undefined) {
+                    originalProductInGlobal.sizes[removedItem.size]++;
                 }
             }
+        } else {
+            // Increment stock back if item is completely removed
+            if ((removedItem.section === 'jerseys' || removedItem.section === 'kits') && removedItem.size) {
+                const originalProductInGlobal = products[removedItem.section].find(p => p.id === removedItem.id);
+                if (originalProductInGlobal && originalProductInGlobal.sizes[removedItem.size] !== undefined) {
+                    originalProductInGlobal.sizes[removedItem.size]++;
+                }
+            }
+            cart.splice(itemIndex, 1);
         }
+        
+        updateCart();
+        
+        // Save cart to Firestore if user is logged in
+        if (auth.currentUser) {
+            saveCartToFirestore(auth.currentUser.uid, cart);
+        }
+    }
+}
+        
 
         // Save cart to Firestore
         function saveCartToFirestore(userId, cartItems) {
