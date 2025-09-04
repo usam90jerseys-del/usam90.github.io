@@ -1382,20 +1382,20 @@ function generateOrderId() {
         // Sample product data with real image URLs
         const products = {
     jerseys: [
-        { id: 1, name: "FC Barcelona Home Jersey 25/26", price: 7499, image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg", sizes: { S: 5, M: 3, L: 8, XL: 2 }  },
-        { id: 2, name: "Real Madrid Away Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg", sizes: { S: 4, M: 6, L: 1, XL: 0 }  },
-        { id: 3, name: "Manchester United Home 25/26", price: 6699, image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg", sizes: { S: 2, M: 0, L: 5, XL: 3 }  },
-        { id: 4, name: "Liverpool FC Home 25/26", price: 6899, image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594", sizes: { S: 3, M: 2, L: 0, XL: 0 } },
-        { id: 5, name: "Bayern Munich Home 25/26", price: 7199, image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197", sizes: { S: 1, M: 4, L: 2, XL: 1 }},
-        { id: 6, name: "AC Milan Home 25/26", price: 6899, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp", sizes: { S: 0, M: 3, L: 0, XL: 4 }},
-        { id: 7, name: "Chelsea FC Home Jersey 25/26", price: 6999, image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg",sizes: { S: 2, M: 1, L: 0, XL: 0 } },
-        { id: 8, name: "Paris Saint-Germain Home 25/26", price: 7299, image: "https://clubjerseys.in/wp-content/uploads/2025/06/02eb2c89-bd63.webp", sizes: { S: 5, M: 3, L: 2, XL: 1 } },
-        { id: 9, name: "Juventus Home Jersey 25/26", price: 6799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ3VChIxp6mYUUloMfsYGIgfprKXTKHBtYHQ&s", sizes: { S: 3, M: 4, L: 1, XL: 2 } },
-        { id: 10, name: "Arsenal Home Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-Arsenal-Home-S-4XL-8-600x600-1.webp", sizes: { S: 2, M: 0, L: 3, XL: 0 } },
-        { id: 11, name: "Inter Milan Home Jersey 25/26", price: 6899, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy4T8lWW-wLtGaO6qMmMJ7cgtokYq6KusPwQ&s", sizes: { S: 1, M: 2, L: 4, XL: 1 } },
-        { id: 12, name: "Atletico Madrid Home Jersey 25/26", price: 6699, image: "https://fulltimestore.in/cdn/shop/files/37f1ba77.jpg?v=1749159619&width=800", sizes: { S: 0, M: 3, L: 2, XL: 0 } },
-        { id: 13, name: "Borussia Dortmund Home Jersey 25/26", price: 6799, image: "https://footballprestige.com/cdn/shop/files/2526-borussia-dortmund-home-kit-footballprestigecom-2025-premium-quality-568174.jpg?v=1744917325&width=2048", sizes: { S: 4, M: 2, L: 1, XL: 3 } },
-        { id: 14, name: "Tottenham Hotspur Home Jersey 25/26", price: 6999, image: "https://i0.wp.com/www.copycatz.in/wp-content/uploads/2025/06/Tottenham_Hotspur_Home_25_26_Season-player.jpg?fit=1560%2C1600&ssl=1", sizes: { S: 2, M: 0, L: 0, XL: 4 } }
+        { id: 1, name: "FC Barcelona Home Jersey 25/26", price: 7499, image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg", sizes: { S: 5, M: 3, L: 8, XL: 2, XXL: 1  }  },
+        { id: 2, name: "Real Madrid Away Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg", sizes: { S: 4, M: 6, L: 1, XL: 0, XXL: 1 }  },
+        { id: 3, name: "Manchester United Home 25/26", price: 6699, image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg", sizes: { S: 2, M: 0, L: 5, XL: 3, XXL: 1 }  },
+        { id: 4, name: "Liverpool FC Home 25/26", price: 6899, image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594", sizes: { S: 3, M: 2, L: 0, XL: 0, XXL: 1 } },
+        { id: 5, name: "Bayern Munich Home 25/26", price: 7199, image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197", sizes: { S: 1, M: 4, L: 2, XL: 1, XXL: 1 }},
+        { id: 6, name: "AC Milan Home 25/26", price: 6899, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp", sizes: { S: 0, M: 3, L: 0, XL: 4, XXL: 1 }},
+        { id: 7, name: "Chelsea FC Home Jersey 25/26", price: 6999, image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg",sizes: { S: 2, M: 1, L: 0, XL: 0, XXL: 1 } },
+        { id: 8, name: "Paris Saint-Germain Home 25/26", price: 7299, image: "https://clubjerseys.in/wp-content/uploads/2025/06/02eb2c89-bd63.webp", sizes: { S: 5, M: 3, L: 2, XL: 1, XXL: 1 } },
+        { id: 9, name: "Juventus Home Jersey 25/26", price: 6799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ3VChIxp6mYUUloMfsYGIgfprKXTKHBtYHQ&s", sizes: { S: 3, M: 4, L: 1, XL: 2, XXL: 1 } },
+        { id: 10, name: "Arsenal Home Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-Arsenal-Home-S-4XL-8-600x600-1.webp", sizes: { S: 2, M: 0, L: 3, XL: 0, XXL: 1 } },
+        { id: 11, name: "Inter Milan Home Jersey 25/26", price: 6899, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy4T8lWW-wLtGaO6qMmMJ7cgtokYq6KusPwQ&s", sizes: { S: 1, M: 2, L: 4, XL: 1, XXL: 1 } },
+        { id: 12, name: "Atletico Madrid Home Jersey 25/26", price: 6699, image: "https://fulltimestore.in/cdn/shop/files/37f1ba77.jpg?v=1749159619&width=800", sizes: { S: 0, M: 3, L: 2, XL: 0, XXL: 1 } },
+        { id: 13, name: "Borussia Dortmund Home Jersey 25/26", price: 6799, image: "https://footballprestige.com/cdn/shop/files/2526-borussia-dortmund-home-kit-footballprestigecom-2025-premium-quality-568174.jpg?v=1744917325&width=2048", sizes: { S: 4, M: 2, L: 1, XL: 3, XXL: 1 } },
+        { id: 14, name: "Tottenham Hotspur Home Jersey 25/26", price: 6999, image: "https://i0.wp.com/www.copycatz.in/wp-content/uploads/2025/06/Tottenham_Hotspur_Home_25_26_Season-player.jpg?fit=1560%2C1600&ssl=1", sizes: { S: 2, M: 0, L: 0, XL: 4, XXL: 1 } }
     ],
     boots: [
         { id: 1, name: "Nike Mercurial Vapor", price: 20999, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600", inStock: false },
@@ -1404,7 +1404,7 @@ function generateOrderId() {
         { id: 4, name: "Puma King Platinum", price: 16799, image: "https://m.media-amazon.com/images/I/51UFOmNWAbL._UY1000_.jpg", inStock: false }
     ],
     kits: [ 
-        { id: 1, name: "Training Kit Pro", price: 10999, image: "https://m.media-amazon.com/images/I/41BE1nX8KkL.jpg", inStock: false },
+        { id: 1, name: "Liverpool Home Kit 2023/24 (Jersey+Shorts)", price: 699, image: "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045", sizes: { S: 2, M: 0, L: 1, XL: 0, XXL: 1 } },
         { id: 2, name: "Goalkeeper Kit", price: 12599, image: "https://encrypted-tbn3.gstatic.com/shopping?q=tbn:ANd9GcRRRmlbuOoMO58rDLcUIlKa_Mo9ijK9xFvw4NKw3tWELA0NJY751bmgHlBghDBq8HLw8omXiYCdHiQQyRUMXZrQ8MYnKAOC45mvaHU9gGYZyZlgXUAHPBn3Jw", inStock: false },
         { id: 3, name: "Warm-Up Suit", price: 13499, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcRt0ki3ypF7jfTM6F1LrFlfZ8M5tx3-VtPKbnZ4eRcI4CjLr2IAMCZzhAL1bW464SF2DUX723yDrhcH8f1h3MAVQ93EWXs5r5Vnj7yJ4mg", inStock: false },
         { id: 4, name: "Team Training Set", price: 16799, image: "https://encrypted-tbn1.gstatic.com/shopping?q=tbn:ANd9GcQ9TTbSG8toPCuFgyMesd0Jn8QFu6GmnKRMMZlXcQF5pi8TrTzR2SFAaOytE2B47_KLSCWxQxUtkcTW9NrlCFhPFF_eJQP_u3aG4L1ai9yURMAxZIPZkQUg", inStock: false }
@@ -1415,14 +1415,22 @@ function formatIndianCurrency(amount) {
     // Convert to string and split into whole and decimal parts
     const [whole, decimal] = amount.toFixed(2).split('.');
     
+    // If amount is less than 1000, no need for comma formatting
+    if (amount < 1000) {
+        return `₹${whole}.${decimal}`;
+    }
+    
     // Format whole number part with Indian comma separation
     const lastThree = whole.substring(whole.length - 3);
     const otherNumbers = whole.substring(0, whole.length - 3);
-    const formatted = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + lastThree;
     
-    return `₹${formatted}.${decimal}`;
+    if (otherNumbers !== '') {
+        const formatted = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + "," + lastThree;
+        return `₹${formatted}.${decimal}`;
+    } else {
+        return `₹${lastThree}.${decimal}`;
+    }
 }
-
         // Cart functionality
         let cart = [];
         const cartCount = document.querySelector('.cart-count');
@@ -1745,7 +1753,7 @@ window.confirmPaymentSuccess = async function() {
                     <div class="product-info">
                         <h3 class="product-title">${product.name}</h3>
                                         <p class="product-price">${formatIndianCurrency(product.price)}</p>
-                ${sectionId === 'jerseys' && product.sizes ? `
+                ${(sectionId === 'jerseys' || sectionId === 'kits') && product.sizes ? `
     <div class="size-selector">
         ${Object.entries(product.sizes).map(([size, stock]) => `
             <button class="size-btn ${stock === 0 ? 'out-of-stock-size' : ''}" 
@@ -1772,20 +1780,20 @@ window.confirmPaymentSuccess = async function() {
                 productCard.style.animationDelay = `${productsArray.indexOf(product) * 0.1}s`;
             });
             
-            // Add event listeners to size buttons
-            if (sectionId === 'jerseys') {
-                const sizeButtons = container.querySelectorAll('.size-btn');
-                sizeButtons.forEach(button => {
-                    button.addEventListener('click', () => {
-                        // Remove selected class from all buttons in the same selector
-                        button.parentElement.querySelectorAll('.size-btn').forEach(btn => {
-                            btn.classList.remove('selected');
-                        });
-                        // Add selected class to clicked button
-                        button.classList.add('selected');
-                    });
-                });
-            }
+            // Add event listeners to size buttons (for both jerseys and kits)
+if (sectionId === 'jerseys' || sectionId === 'kits') {
+    const sizeButtons = container.querySelectorAll('.size-btn');
+    sizeButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Remove selected class from all buttons in the same selector
+            button.parentElement.querySelectorAll('.size-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            // Add selected class to clicked button
+            button.classList.add('selected');
+        });
+    });
+}
             
             // Add event listeners to add to cart buttons
             const addToCartButtons = container.querySelectorAll('.add-to-cart:not([disabled])');
@@ -1795,7 +1803,7 @@ window.confirmPaymentSuccess = async function() {
                     const section = e.target.getAttribute('data-section');
                     let selectedSize = null;
                     
-                    if (section === 'jerseys') {
+                    if (section === 'jerseys' || section === 'kits') {
                         const selectedButton = e.target.parentElement.querySelector('.size-btn.selected');
                         if (!selectedButton) {
                             alert('Please select a size');
@@ -1819,7 +1827,7 @@ window.confirmPaymentSuccess = async function() {
             
             if (product) {
         // Check if size is out of stock (for jerseys only)
-        if (section === 'jerseys' && size && product.sizes && product.sizes[size] === 0) {
+        if ((section === 'jerseys' || section === 'kits') && size && product.sizes && product.sizes[size] === 0) {
             alert(`Sorry, size ${size} is out of stock!`);
             return;
         }
@@ -1830,10 +1838,11 @@ window.confirmPaymentSuccess = async function() {
                     existingItem.quantity += 1;
                 } else {
                     cart.push({
-                        ...product,
-                        size: size,
-                        quantity: 1
-                    });
+    ...product,
+    size: size,
+    section: section, // Add this line to store the section
+    quantity: 1
+});
                 }
                 
                 updateCart();
@@ -1861,6 +1870,7 @@ window.confirmPaymentSuccess = async function() {
                         <h4 class="cart-item-title">${item.name}</h4>
                                         <p class="cart-item-price">${formatIndianCurrency(item.price)} x ${item.quantity}</p>
                         ${item.size ? `<p>Size: ${item.size}</p>` : ''}
+${item.size && (item.section === 'jerseys' || item.section === 'kits') ? `<p style="color: #10b981; font-size: 12px;">In Stock: ${products[item.section].find(p => p.id === item.id)?.sizes[item.size] || 0}</p>` : ''}
                     </div>
                     <button class="remove-item" data-id="${item.id}" data-size="${item.size}">
                         <i class="fas fa-trash"></i>
