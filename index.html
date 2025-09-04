@@ -841,25 +841,38 @@
         }
         
         /* Out of stock styling */
-        .out-of-stock {
-            position: relative;
-        }
-        
-        .out-of-stock::after {
-            content: "Out of Stock";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #ff5555;
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
+.out-of-stock {
+    position: relative;
+}
+
+.out-of-stock::after {
+    content: "Out of Stock";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #ff5555;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Out of stock size styling */
+.size-btn.out-of-stock-size {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: #6b7280 !important;
+    color: #a0aec0 !important;
+}
+
+.size-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
         
         /* Responsive design */
         @media (max-width: 900px) {
@@ -1369,20 +1382,63 @@ function generateOrderId() {
         // Sample product data with real image URLs
         const products = {
     jerseys: [
-        { id: 1, name: "FC Barcelona Home Jersey 25/26", price: 7499, image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg" },
-        { id: 2, name: "Real Madrid Away Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg" },
-        { id: 3, name: "Manchester United Home 25/26", price: 6699, image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg" },
-        { id: 4, name: "Liverpool FC Home 25/26", price: 6899, image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594" },
-        { id: 5, name: "Bayern Munich Home 25/26", price: 7199, image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197" },
-        { id: 6, name: "AC Milan Home 25/26", price: 6899, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp" },
-        { id: 7, name: "Chelsea FC Home Jersey 25/26", price: 6999, image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg" },
-        { id: 8, name: "Paris Saint-Germain Home 25/26", price: 7299, image: "https://clubjerseys.in/wp-content/uploads/2025/06/02eb2c89-bd63.webp" },
-        { id: 9, name: "Juventus Home Jersey 25/26", price: 6799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ3VChIxp6mYUUloMfsYGIgfprKXTKHBtYHQ&s" },
-        { id: 10, name: "Arsenal Home Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-Arsenal-Home-S-4XL-8-600x600-1.webp" },
-        { id: 11, name: "Inter Milan Home Jersey 25/26", price: 6899, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy4T8lWW-wLtGaO6qMmMJ7cgtokYq6KusPwQ&s" },
-        { id: 12, name: "Atletico Madrid Home Jersey 25/26", price: 6699, image: "https://fulltimestore.in/cdn/shop/files/37f1ba77.jpg?v=1749159619&width=800" },
-        { id: 13, name: "Borussia Dortmund Home Jersey 25/26", price: 6799, image: "https://footballprestige.com/cdn/shop/files/2526-borussia-dortmund-home-kit-footballprestigecom-2025-premium-quality-568174.jpg?v=1744917325&width=2048" },
-        { id: 14, name: "Tottenham Hotspur Home Jersey 25/26", price: 6999, image: "https://i0.wp.com/www.copycatz.in/wp-content/uploads/2025/06/Tottenham_Hotspur_Home_25_26_Season-player.jpg?fit=1560%2C1600&ssl=1" },
+        { 
+            id: 1, 
+            name: "FC Barcelona Home Jersey 25/26", 
+            price: 7499, 
+            image: "https://futballgear.in/wp-content/uploads/2025/06/1336aa97-scaled.jpeg",
+            sizes: { S: 5, M: 3, L: 8, XL: 2 } // Add stock for each size
+        },
+        { 
+            id: 2, 
+            name: "Real Madrid Away Jersey 25/26", 
+            price: 7099, 
+            image: "https://emporiosports.in/wp-content/uploads/2025/07/f40b988a.jpg",
+            sizes: { S: 4, M: 6, L: 1, XL: 0 } // XL out of stock
+        },
+        { 
+            id: 3, 
+            name: "Manchester United Home 25/26", 
+            price: 6699, 
+            image: "https://emporiosports.in/wp-content/uploads/2025/06/1cca565d.jpg",
+            sizes: { S: 2, M: 0, L: 5, XL: 3 } // M out of stock
+        },
+        { 
+            id: 4, 
+            name: "Liverpool FC Home 25/26", 
+            price: 6899, 
+            image: "https://myfootballstore.co.in/cdn/shop/files/sg-11134201-7rffh-m3hqm3q2sns82d.jpg?v=1749958594",
+            sizes: { S: 3, M: 2, L: 0, XL: 0 } // L and XL out of stock (as requested)
+        },
+        { 
+            id: 5, 
+            name: "Bayern Munich Home 25/26", 
+            price: 7199, 
+            image: "https://redravenstore.in/cdn/shop/files/Home1_46327748-3c75-4ef1-98ce-58b763f2d70d.jpg?v=1750925197",
+            sizes: { S: 1, M: 4, L: 2, XL: 1 }
+        },
+        { 
+            id: 6, 
+            name: "AC Milan Home 25/26", 
+            price: 6899, 
+            image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-AC-Milan-Home-S-4XL-2-600x600-1.webp",
+            sizes: { S: 0, M: 3, L: 0, XL: 4 } // S and L out of stock
+        },
+        { 
+            id: 7, 
+            name: "Chelsea FC Home Jersey 25/26", 
+            price: 6999, 
+            image: "https://emporiosports.in/wp-content/uploads/2025/06/db792b1e.jpg",
+            sizes: { S: 2, M: 1, L: 0, XL: 0 } // L and XL out of stock (as requested)
+        },
+        // ... keep the rest of your jerseys with sizes property
+        { id: 8, name: "Paris Saint-Germain Home 25/26", price: 7299, image: "https://clubjerseys.in/wp-content/uploads/2025/06/02eb2c89-bd63.webp", sizes: { S: 5, M: 3, L: 2, XL: 1 } },
+        { id: 9, name: "Juventus Home Jersey 25/26", price: 6799, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRQ3VChIxp6mYUUloMfsYGIgfprKXTKHBtYHQ&s", sizes: { S: 3, M: 4, L: 1, XL: 2 } },
+        { id: 10, name: "Arsenal Home Jersey 25/26", price: 7099, image: "https://emporiosports.in/wp-content/uploads/2025/06/2526-Arsenal-Home-S-4XL-8-600x600-1.webp", sizes: { S: 2, M: 0, L: 3, XL: 0 } },
+        { id: 11, name: "Inter Milan Home Jersey 25/26", price: 6899, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSy4T8lWW-wLtGaO6qMmMJ7cgtokYq6KusPwQ&s", sizes: { S: 1, M: 2, L: 4, XL: 1 } },
+        { id: 12, name: "Atletico Madrid Home Jersey 25/26", price: 6699, image: "https://fulltimestore.in/cdn/shop/files/37f1ba77.jpg?v=1749159619&width=800", sizes: { S: 0, M: 3, L: 2, XL: 0 } },
+        { id: 13, name: "Borussia Dortmund Home Jersey 25/26", price: 6799, image: "https://footballprestige.com/cdn/shop/files/2526-borussia-dortmund-home-kit-footballprestigecom-2025-premium-quality-568174.jpg?v=1744917325&width=2048", sizes: { S: 4, M: 2, L: 1, XL: 3 } },
+        { id: 14, name: "Tottenham Hotspur Home Jersey 25/26", price: 6999, image: "https://i0.wp.com/www.copycatz.in/wp-content/uploads/2025/06/Tottenham_Hotspur_Home_25_26_Season-player.jpg?fit=1560%2C1600&ssl=1", sizes: { S: 2, M: 0, L: 0, XL: 4 } }
     ],
     boots: [
         { id: 7, name: "Nike Mercurial Vapor", price: 20999, image: "https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=600", inStock: false },
@@ -1732,14 +1788,22 @@ window.confirmPaymentSuccess = async function() {
                     <div class="product-info">
                         <h3 class="product-title">${product.name}</h3>
                                         <p class="product-price">${formatIndianCurrency(product.price)}</p>
-                        ${sectionId === 'jerseys' ? `
-                            <div class="size-selector">
-                                <button class="size-btn">S</button>
-                                <button class="size-btn">M</button>
-                                <button class="size-btn">L</button>
-                                <button class="size-btn">XL</button>
-                            </div>
-                        ` : ''}
+                ${sectionId === 'jerseys' && product.sizes ? `
+    <div class="size-selector">
+        ${Object.entries(product.sizes).map(([size, stock]) => `
+            <button class="size-btn ${stock === 0 ? 'out-of-stock-size' : ''}" 
+                    ${stock === 0 ? 'disabled' : ''}
+                    data-stock="${stock}">
+                ${size} ${stock === 0 ? '(X)' : ''}
+            </button>
+        `).join('')}
+    </div>
+    ${Object.values(product.sizes).every(stock => stock === 0) ? `
+        <div style="color: #ff5555; margin-bottom: 10px; font-weight: bold;">
+            All sizes out of stock
+        </div>
+    ` : ''}
+` : ''}
                         <button class="add-to-cart" data-id="${product.id}" data-section="${sectionId}" ${!product.inStock && product.inStock !== undefined ? 'disabled style="opacity: 0.5; cursor: not-allowed;"' : ''}>
                             ${!product.inStock && product.inStock !== undefined ? 'Out of Stock' : 'Add to Cart'}
                         </button>
@@ -1797,8 +1861,14 @@ window.confirmPaymentSuccess = async function() {
             else if (section === 'kits') product = products.kits.find(p => p.id === productId);
             
             if (product) {
-                const existingItem = cart.find(item => item.id === productId && item.size === size);
-                
+        // Check if size is out of stock (for jerseys only)
+        if (section === 'jerseys' && size && product.sizes && product.sizes[size] === 0) {
+            alert(`Sorry, size ${size} is out of stock!`);
+            return;
+        }
+        
+        const existingItem = cart.find(item => item.id === productId && item.size === size);
+        
                 if (existingItem) {
                     existingItem.quantity += 1;
                 } else {
