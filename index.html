@@ -1120,6 +1120,14 @@
             <input type="text" id="address-nickname" placeholder="Home, Office, etc.">
         </div>
         <div class="form-group">
+            <label for="address-fullname">Full Name</label>
+            <input type="text" id="address-fullname" placeholder="Enter your full name">
+        </div>
+        <div class="form-group">
+            <label for="address-phone">Phone Number</label>
+            <input type="tel" id="address-phone" placeholder="Enter your 10-digit phone number">
+        </div>
+        <div class="form-group">
             <label for="address-line">Address Line</label>
             <input type="text" id="address-line" placeholder="Street address, building, etc.">
         </div>
@@ -1398,7 +1406,7 @@ function generateOrderId() {
                 { 
                   id: 1, 
                   name: "Liverpool Home Kit 2023/24 (Jersey+Shorts)", 
-                  price: 1, 
+                  price: 699, 
                   image: "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045", 
                   sizes: { S: 2, M: 0, L: 1, XL: 0, XXL: 0 } 
                 },
@@ -1520,55 +1528,64 @@ function formatIndianCurrency(amount) {
             clearAddressForm();
         });
         
-        // Save address to Firestore
-        saveAddressBtn.addEventListener('click', function() {
-            const nickname = document.getElementById('address-nickname').value;
-            const addressLine = document.getElementById('address-line').value;
-            const state = addressState.value;
-            const city = addressCity.value;
-            const pincode = document.getElementById('address-pincode').value;
+// Save address to Firestore
+saveAddressBtn.addEventListener('click', function() {
+    const fullname = document.getElementById('address-fullname').value;
+    const phone = document.getElementById('address-phone').value;
+    const nickname = document.getElementById('address-nickname').value;
+    const addressLine = document.getElementById('address-line').value;
+    const state = addressState.value;
+    const city = addressCity.value;
+    const pincode = document.getElementById('address-pincode').value;
+    
+    if (!fullname || !phone || !nickname || !addressLine || !state || !city || !pincode) {
+        alert('Please fill all address fields');
+        return;
+    }
+    
+    if (!/^\d{10}$/.test(phone)) {
+        alert('Please enter a valid 10-digit phone number');
+        return;
+    }
+    
+    if (!/^\d{6}$/.test(pincode)) {
+        alert('Please enter a valid 6-digit pincode');
+        return;
+    }
+    
+    if (auth.currentUser) {
+        const userAddressesRef = db.collection('userAddresses').doc(auth.currentUser.uid);
+        
+        userAddressesRef.get().then((doc) => {
+            const addresses = doc.exists ? doc.data().addresses : {};
+            const addressId = 'addr_' + Date.now();
             
-            if (!nickname || !addressLine || !state || !city || !pincode) {
-                alert('Please fill all address fields');
-                return;
-            }
+            addresses[addressId] = {
+                fullname,
+                phone,
+                nickname,
+                addressLine,
+                state,
+                city,
+                pincode,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
             
-            if (!/^\d{6}$/.test(pincode)) {
-                alert('Please enter a valid 6-digit pincode');
-                return;
-            }
-            
-            if (auth.currentUser) {
-                const userAddressesRef = db.collection('userAddresses').doc(auth.currentUser.uid);
-                
-                userAddressesRef.get().then((doc) => {
-                    const addresses = doc.exists ? doc.data().addresses : {};
-                    const addressId = 'addr_' + Date.now();
-                    
-                    addresses[addressId] = {
-                        nickname,
-                        addressLine,
-                        state,
-                        city,
-                        pincode,
-                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                    };
-                    
-                    userAddressesRef.set({ addresses })
-                        .then(() => {
-                            alert('Address saved successfully!');
-                            addressForm.style.display = 'none';
-                            addAddressBtn.style.display = 'block';
-                            clearAddressForm();
-                            loadUserAddresses();
-                        })
-                        .catch((error) => {
-                            console.error("Error saving address:", error);
-                            alert('Error saving address. Please try again.');
-                        });
+            userAddressesRef.set({ addresses })
+                .then(() => {
+                    alert('Address saved successfully!');
+                    addressForm.style.display = 'none';
+                    addAddressBtn.style.display = 'block';
+                    clearAddressForm();
+                    loadUserAddresses();
+                })
+                .catch((error) => {
+                    console.error("Error saving address:", error);
+                    alert('Error saving address. Please try again.');
                 });
-            }
         });
+    }
+});
         
         // Load user addresses
         function loadUserAddresses() {
@@ -1609,10 +1626,12 @@ function formatIndianCurrency(amount) {
                 }
                 
                 addressElement.innerHTML = `
-                    <h4 style="margin: 0 0 10px; color: var(--accent);">${address.nickname}</h4>
-                    <p style="margin: 5px 0;">${address.addressLine}</p>
-                    <p style="margin: 5px 0;">${address.city}, ${address.state} - ${address.pincode}</p>
-                `;
+    <h4 style="margin: 0 0 10px; color: var(--accent);">${address.nickname}</h4>
+    <p style="margin: 5px 0; font-weight: bold;">${address.fullname}</p>
+    <p style="margin: 5px 0;">📞 ${address.phone}</p>
+    <p style="margin: 5px 0;">${address.addressLine}</p>
+    <p style="margin: 5px 0;">${address.city}, ${address.state} - ${address.pincode}</p>
+`;
                 
                 addressElement.addEventListener('click', () => {
                     selectedAddressId = addressId;
@@ -1626,13 +1645,15 @@ function formatIndianCurrency(amount) {
         
         // Clear address form
         function clearAddressForm() {
-            document.getElementById('address-nickname').value = '';
-            document.getElementById('address-line').value = '';
-            addressState.value = '';
-            addressCity.innerHTML = '<option value="">Select City</option>';
-            addressCity.disabled = true;
-            document.getElementById('address-pincode').value = '';
-        }
+    document.getElementById('address-fullname').value = '';
+    document.getElementById('address-phone').value = '';
+    document.getElementById('address-nickname').value = '';
+    document.getElementById('address-line').value = '';
+    addressState.value = '';
+    addressCity.innerHTML = '<option value="">Select City</option>';
+    addressCity.disabled = true;
+    document.getElementById('address-pincode').value = '';
+}
         
         // Load addresses when user is authenticated
         auth.onAuthStateChanged((user) => {
@@ -2040,5 +2061,3 @@ function removeFromCart(productId, size) {
     </script>
 </body>
 </html>
-
-
