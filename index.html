@@ -579,12 +579,95 @@
             box-shadow: 0 15px 25px rgba(0, 0, 0, 0.4);
         }
         
-        .product-image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            transition: transform 0.5s;
-        }
+.product-image-container {
+    width: 100%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+
+.product-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transition: transform 0.5s;
+}
+
+.product-image-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    width: 100%;
+    height: 100%;
+}
+
+.product-image-slide {
+    min-width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-image-slide img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.product-image-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.product-image-container:hover .product-image-nav {
+    opacity: 1;
+}
+
+.product-image-prev {
+    left: 10px;
+}
+
+.product-image-next {
+    right: 10px;
+}
+
+.product-image-dots {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    z-index: 2;
+}
+
+.product-image-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    border: none;
+}
+
+.product-image-dot.active {
+    background: white;
+}
         
         .product-card:hover .product-image {
             transform: scale(1.05);
@@ -1464,7 +1547,14 @@ function generateOrderId() {
                   id: 1, 
                   name: "Ronaldo 7 - Al Nassr Home 2023/24 - Master Quality", 
                   price: 999, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/10b6d1e397ba64d48bd905a1a3ff7d27.png-z-621_621_f-webp_1024x1024.webp?v=1692695058", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/10b6d1e397ba64d48bd905a1a3ff7d27.png-z-621_621_f-webp_1024x1024.webp?v=1692695058",
+    "https://indiansoccermart.in/cdn/shop/files/bb0a8e415ab55dae79a5a48860a2e645.png-z-621_621_f-webp_750x.webp?v=1692695058",
+    "https://indiansoccermart.in/cdn/shop/files/2db92f3327a14a8cd92dd45b9893b882.JPG-z-621_621_f-webp_750x.webp?v=1692695059",
+    "https://indiansoccermart.in/cdn/shop/files/8f7844459d2369912e0235ec5cf97386.JPG-z-621_621_f-webp_750x.webp?v=1692695060",
+    "https://indiansoccermart.in/cdn/shop/files/79f05cc4da4044a80aae64087448f6d7.JPG-z-621_621_f-webp_750x.webp?v=1692695060",
+    "https://indiansoccermart.in/cdn/shop/files/4258950a7d5af2c3999a4c5d1abfc406.JPG-z-621_621_f-webp_750x.webp?v=1692695061"
+  ],
                   sizes: { S: 4, M: 2, L: 4, XL: 2, XXL: 2  } 
                 },
 
@@ -1472,15 +1562,27 @@ function generateOrderId() {
                   id: 2, 
                   name: "Portugal Home 2022 World Cup Jersey - Player Version", 
                   price: 1099, 
-                  image: "https://indiansoccermart.in/cdn/shop/products/c60dd89985c5dce836ea1528a15871fc_1024x1024.png?v=1667051079", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/products/c60dd89985c5dce836ea1528a15871fc_1024x1024.png?v=1667051079",
+    "https://indiansoccermart.in/cdn/shop/products/c4a061758850d6372e586ed27e59d96e_750x.png?v=1667051078",
+    "https://indiansoccermart.in/cdn/shop/products/b41007802264b5378f4716d9a694f01f_750x.jpg?v=1667051079",
+    "https://indiansoccermart.in/cdn/shop/products/975e986a105d62ba4cbb0722dbedc6b5_750x.jpg?v=1667051078"
+  ],
                   sizes: { S: 0, M: 0, L: 1, XL: 0, XXL: 1  } 
                 },
 
                 { 
                   id: 3, 
                   name: "Belgium Away Euro 2024 - Master Quality", 
-                  price: 849, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/80a2601d46c52512d43532f4547a42a4.png-z-0_0_f-webp_1024x1024.webp?v=1738314817", 
+                  price: 849,
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/80a2601d46c52512d43532f4547a42a4.png-z-0_0_f-webp_1024x1024.webp?v=1738314817",
+    "https://indiansoccermart.in/cdn/shop/files/432b9381c8dc62fb4a8ba1c3f7809cc6.png-z-0_0_f-webp_1024x1024.webp?v=1738314817",
+    "https://indiansoccermart.in/cdn/shop/files/7972c43e27d8ea4bd4cd6e4aea9cf2da.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817",
+    "https://indiansoccermart.in/cdn/shop/files/ca4990da45611da9611035afbdcaf562.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817",
+    "https://indiansoccermart.in/cdn/shop/files/20220ed221475dc8abf93f81d9a5223b.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817",
+    "https://indiansoccermart.in/cdn/shop/files/2d0c7be0597a605d2ba4bbc93e1d842a.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817"
+  ], 
                   sizes: { S: 3, M: 3, L: 4, XL: 4, XXL: 0  } 
                 },
 
@@ -1488,15 +1590,31 @@ function generateOrderId() {
                   id: 4, 
                   name: "Japan x Y-3 Away 2024 - Master Quality", 
                   price: 849, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/1719480297093757639_1024x1024.png?v=1723638993", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/1719480297093757639_1024x1024.png?v=1723638993",
+    "https://indiansoccermart.in/cdn/shop/files/1719480297732589630_1024x1024.png?v=1723638994",
+    "https://indiansoccermart.in/cdn/shop/files/1721977724664953882_1024x1024.png?v=1723638994",
+    "https://indiansoccermart.in/cdn/shop/files/1721977724821719471_1024x1024.png?v=1723638994",
+    "https://indiansoccermart.in/cdn/shop/files/1721977725398260893_1024x1024.png?v=1723638993",
+    "https://indiansoccermart.in/cdn/shop/files/1721977725512087228_1024x1024.png?v=1723638994",
+    "https://indiansoccermart.in/cdn/shop/files/1721977725564691887_1024x1024.png?v=1723638994"
+  ],
                   sizes: { S: 2, M: 1, L: 0, XL: 5, XXL: 0  } 
                 },
 
                 { 
                   id: 5, 
                   name: "Japan x Y-3 Home 2024 - Master Quality", 
-                  price: 849, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/1ee81669f36a96136deeafa2c9b5b6eb.png-z-0_0_f-webp_1024x1024.webp?v=1731015345", 
+                  price: 849,
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/1ee81669f36a96136deeafa2c9b5b6eb.png-z-0_0_f-webp_1024x1024.webp?v=1731015345",
+    "https://indiansoccermart.in/cdn/shop/files/7709d32969709469d7540dd48d9c19e8.png-z-0_0_f-webp_1024x1024.webp?v=1731015345",
+    "https://indiansoccermart.in/cdn/shop/files/82666c03a32e2f307017c95c18575c62.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
+    "https://indiansoccermart.in/cdn/shop/files/7d3fd15bd6f7a612e5818fafb76015f8.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
+    "https://indiansoccermart.in/cdn/shop/files/659b3a4bc29d898b66a72f8fe3ebd626.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
+    "https://indiansoccermart.in/cdn/shop/files/a4b043353dc5eefc43d5ad2a9637d43c.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
+    "https://indiansoccermart.in/cdn/shop/files/51a892c97d7361a6e2263f3a3ab68112.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345"
+  ], 
                   sizes: { S: 1, M: 1, L: 4, XL: 3, XXL: 0  } 
                 },
 
@@ -1504,17 +1622,38 @@ function generateOrderId() {
                   id: 6, 
                   name: "France Home Euro 2024 - Master Quality", 
                   price: 849, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/74ffcc8507c86339375ab6b1f0a8ea61.png-z-0_0_f-webp_1024x1024.webp?v=1711528863", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/74ffcc8507c86339375ab6b1f0a8ea61.png-z-0_0_f-webp_1024x1024.webp?v=1711528863",
+    "https://indiansoccermart.in/cdn/shop/files/1028a1c9118c0a9d1c54bece02bfd5ce.png-z-0_0_f-webp_1024x1024.webp?v=1711528863"
+  ],
                   sizes: { S: 1, M: 4, L: 4, XL: 4, XXL: 0 } 
                 },
 
                 { 
                   id: 7, 
                   name: "Al Nassr Away 2024/25 - Master Quality", 
-                  price: 749, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/49d5e90059e6ac861c44410490e462a4.png-z-0_0_f-webp_1024x1024.webp?v=1730982107", 
+                  price: 749,
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/49d5e90059e6ac861c44410490e462a4.png-z-0_0_f-webp_1024x1024.webp?v=1730982107",
+    "https://indiansoccermart.in/cdn/shop/files/2459ca9be35a1b670b6f3764309d4d79.png-z-0_0_f-webp_750x.webp?v=1730982107",
+    "https://indiansoccermart.in/cdn/shop/files/1e87615c75b8531c8926709fdc91f925.jpg-z-0_0_f-webp_750x.webp?v=1730982107",
+    "https://indiansoccermart.in/cdn/shop/files/ef4e004f670bad1f1c0721a620c86b7b.jpg-z-0_0_f-webp_750x.webp?v=1730982107",
+    "https://indiansoccermart.in/cdn/shop/files/5c48d3dc52d1d0a84220885467fe1250.jpg-z-0_0_f-webp_750x.webp?v=1730982107"
+  ], 
                   sizes: { S: 2, M: 1, L: 5, XL: 4, XXL: 0 } 
-                }
+                },
+
+                { 
+                  id: 8, 
+                  name: "Argentina Special Edition Kit, Kit No:10, Coller & Zip With Five Sleeve , Premium quality", 
+                  price: 599,
+                  images: [
+    "https://i.ibb.co/jP6twf9v/Whats-App-Image-2025-09-07-at-11-44-50-56bc8ecf.jpg",
+    "https://i.ibb.co/XfnhYgr4/Whats-App-Image-2025-09-07-at-11-44-50-eafdc613.jpg",
+    "https://i.ibb.co/r2xhSNwx/Whats-App-Image-2025-09-07-at-11-44-51-0e9156fe.jpg"
+  ], 
+                  sizes: { S: 1, M: 1, L: 4, XL: 3, XXL: 0  } 
+                },
 
             ],
             boots: [
@@ -1525,23 +1664,36 @@ function generateOrderId() {
                   id: 1, 
                   name: "Liverpool Home Kit 2023/24 (Jersey + Shorts)", 
                   price: 699, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045",
+    "https://indiansoccermart.in/cdn/shop/products/image_79e30e41-cf37-4cf8-a9da-63de9ee1a441_1024x1024.jpg?v=1692198045",
+    "https://indiansoccermart.in/cdn/shop/files/ca367c5350a83a2d1d3164edb99c901b.jpg-z-0_0_f-webp_1024x1024.webp?v=1716995343",
+    "https://indiansoccermart.in/cdn/shop/files/bbe4c1f648b3f75c2889169b1bf8fbe3.png-z-0_0_f-webp_1024x1024.webp?v=1716995343"
+  ],
                   sizes: { S: 2, M: 0, L: 1, XL: 0, XXL: 0 } 
                 },
 
                 { 
                   id: 2, 
-                  name: "Venezia Home kit 2023/24 (Jersey + Shorts)", 
+                  name: "Venezia Home kit 2023/24 (Jersey+Shorts)", 
                   price: 649, 
                   image: "https://indiansoccermart.in/cdn/shop/files/IMG-9751_1024x1024.png?v=1722886570",
-                  sizes: { S: 0, M: 1, L: 0, XL: 0, XXL: 0 }
+                  sizes: { S: 0, M: 0, L: 0, XL: 0, XXL: 0 }
                 },
 
                 { 
                   id: 3, 
                   name: "Miami Home Kit 2023/24 (Jersey + Shorts)", 
                   price: 649, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/Inter-Miami-Home-Kids-Jersey-With-Shorts-2023-24_1024x1024.jpg?v=1716987838", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/Inter-Miami-Home-Kids-Jersey-With-Shorts-2023-24_1024x1024.jpg?v=1716987838",
+    "https://indiansoccermart.in/cdn/shop/files/89ab5080afc6c3c0e89966d92bd08f38_1_1024x1024.png?v=1688547987",
+    "https://indiansoccermart.in/cdn/shop/files/Inter-Miami-Home-Kids-Jersey-With-Shorts-2023-24_1024x1024.jpg?v=1716987838",
+    "https://indiansoccermart.in/cdn/shop/files/d25a768ae56913fbaedbcfea50eb6ac9_1024x1024.jpg?v=1716987837",
+    "https://indiansoccermart.in/cdn/shop/files/264f2a500dbe1dd8660530cb725397c0_1024x1024.jpg?v=1716987837",
+    "https://indiansoccermart.in/cdn/shop/files/791b1782c3801888dc123630d82745a5_1024x1024.jpg?v=1716987837",
+    "https://indiansoccermart.in/cdn/shop/files/5f0aca1d72c93d6f497512e34dfe7f5a_1024x1024.jpg?v=1716987837"
+  ],
                   sizes: { S: 0, M: 0, L: 0, XL: 19, XXL: 0 }
                 },
 
@@ -1549,15 +1701,27 @@ function generateOrderId() {
                   id: 4, 
                   name: "Italy Away Kit Euro 2024 (Jersey + Shorts)", 
                   price: 959, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/GridArt-20240510_200104349_1024x1024.jpg?v=1715351519", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/GridArt-20240510_200104349_1024x1024.jpg?v=1715351519",
+    "https://indiansoccermart.in/cdn/shop/files/dcf6857694d6133eb193cb88dfa65ae8.png-z-0_0_f-webp_1024x1024.webp?v=1715351519",
+    "https://indiansoccermart.in/cdn/shop/files/5d1aa9246d6e29a710639d1a3be54c9e.png-z-0_0_f-webp_1024x1024.webp?v=1715351519",
+    "https://indiansoccermart.in/cdn/shop/files/4ce1f29bf6fe4362d59b029b84cb6f09.png-z-0_0_f-webp_1024x1024.webp?v=1715351519",
+    "https://indiansoccermart.in/cdn/shop/files/0694e788ece355b69cb1671fb07807d4.JPG-z-0_0_f-webp_1024x1024.webp?v=1715351519",
+    "https://indiansoccermart.in/cdn/shop/files/5b46e9784318a150b90e83f4afbd3290.png-z-0_0_f-webp_1024x1024.webp?v=1715351519"
+  ],
                   sizes: { S: 3, M: 1, L: 1, XL: 2, XXL: 0 }
                 },
 
                 { 
                   id: 5, 
                   name: "Italy Home Kit Euro 2024 (Jersey + Shorts)", 
-                  price: 859, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/514aab244e1c5b2c005c36f93b578693.png-z-0_0_f-webp_1024x1024.webp?v=1715350879", 
+                  price: 859,
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/514aab244e1c5b2c005c36f93b578693.png-z-0_0_f-webp_1024x1024.webp?v=1715350879",
+    "https://indiansoccermart.in/cdn/shop/files/cfc87a0c0edc7314c03a41afe2927f26.png-z-0_0_f-webp_1024x1024.webp?v=1715350879",
+    "https://indiansoccermart.in/cdn/shop/files/729cee4f79d789d1f58d903c6c731351.png-z-0_0_f-webp_1024x1024.webp?v=1715350880",
+    "https://indiansoccermart.in/cdn/shop/files/623c290faaf766d93aa2a72c219b92c8.png-z-0_0_f-webp_1024x1024.webp?v=1715350879"
+  ], 
                   sizes: { S: 4, M: 3, L: 5, XL: 3, XXL: 0 } 
                 },
 
@@ -1565,7 +1729,14 @@ function generateOrderId() {
                   id: 6, 
                   name: "France Home Kit Euro 2024 (Jersey + Shorts )", 
                   price: 959, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/708565ff58f9ae161ac2a575b7aab4c0.png-z-0_0_f-webp_1024x1024.webp?v=1715352712", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/708565ff58f9ae161ac2a575b7aab4c0.png-z-0_0_f-webp_1024x1024.webp?v=1715352712",
+    "https://indiansoccermart.in/cdn/shop/files/9f361c1fa68d960b0abfd19d44ed1177.png-z-0_0_f-webp_1024x1024.webp?v=1715352711",
+    "https://indiansoccermart.in/cdn/shop/files/088488f0c262a97a715d1ed2fb09ca70.png-z-0_0_f-webp_1024x1024.webp?v=1715352710",
+    "https://indiansoccermart.in/cdn/shop/files/e1be5aa5e7939b15c0a18c43c820f267.JPG-z-0_0_f-webp_1024x1024.webp?v=1715352710",
+    "https://indiansoccermart.in/cdn/shop/files/1afb6f829e018f8e86836fff303e7916.png-z-0_0_f-webp_1024x1024.webp?v=1715352711",
+    "https://indiansoccermart.in/cdn/shop/files/0e5f08ef33df91a2182ffd9f63a64d9f.png-z-0_0_f-webp_1024x1024.webp?v=1715352711"
+  ],
                   sizes: { S: 5, M: 4, L: 2, XL: 3, XXL: 0 } 
                 },
 
@@ -1573,7 +1744,10 @@ function generateOrderId() {
                   id: 7, 
                   name: "Liverpool Away Set 2020/21 (Jersey + Shorts)", 
                   price: 1199, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/rn-image_picker_lib_temp_9af720e3-946a-4dee-bcdd-62261e0d0a97_1024x1024.jpg?v=1752834658", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/rn-image_picker_lib_temp_9af720e3-946a-4dee-bcdd-62261e0d0a97_1024x1024.jpg?v=1752834658",
+    "https://indiansoccermart.in/cdn/shop/files/rn-image_picker_lib_temp_b7e3caec-b41b-459c-be62-018a3116139b_1024x1024.jpg?v=1752834658"
+  ],
                   sizes: { S: 3, M: 2, L: 4, XL: 3, XXL: 0 } 
                 },
 
@@ -1581,7 +1755,12 @@ function generateOrderId() {
                   id: 8, 
                   name: "France Away Kit Euro 2024 (Jersey + Shorts)", 
                   price: 1199, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/2712e2a3668aad9599317517a8fa820f.png-z-0_0_f-webp_1024x1024.webp?v=1734377757", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/2712e2a3668aad9599317517a8fa820f.png-z-0_0_f-webp_1024x1024.webp?v=1734377757",
+    "https://indiansoccermart.in/cdn/shop/files/3563c6bfb0c5a328bb5137542b42e51c.png-z-0_0_f-webp_1024x1024.webp?v=1734377757",
+    "https://indiansoccermart.in/cdn/shop/files/03799a2c9e352cacbc7156c257ba027d.jpg-z-0_0_f-webp_1_1024x1024.webp?v=1734377757",
+    "https://indiansoccermart.in/cdn/shop/files/6bcf42ca9d2cb70ab059555a16522af9.jpg-z-0_0_f-webp_1_1024x1024.webp?v=1734377757"
+  ], 
                   sizes: { S: 3, M: 1, L: 3, XL: 1, XXL: 0 } 
                 },
 
@@ -1589,31 +1768,75 @@ function generateOrderId() {
                   id: 9, 
                   name: "Miami Away Kit 2024/25 (Jersey + Shorts)", 
                   price: 1199, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/5a3715e031ba981a2a94f7a01d598705.png-z-0_0_f-webp_1024x1024.webp?v=1734439541", 
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/5a3715e031ba981a2a94f7a01d598705.png-z-0_0_f-webp_1024x1024.webp?v=1734439541",
+    "https://indiansoccermart.in/cdn/shop/files/1062f128347da1c9844b3fbbdf2e560b.png-z-0_0_f-webp_1024x1024.webp?v=1734439541",
+    "https://indiansoccermart.in/cdn/shop/files/efd74d1ffcdf112eb342921704ecbed7.png-z-0_0_f-webp_1024x1024.webp?v=1734439541",
+    "https://indiansoccermart.in/cdn/shop/files/0217523c79f206386af1615264974a15.png-z-0_0_f-webp_1024x1024.webp?v=1734439541"
+  ],
                   sizes: { S: 2, M: 2, L: 4, XL: 3, XXL: 0 } 
                 },
 
                 { 
                   id: 10, 
                   name: "Liverpool Third Set 2024/25 (Jersey + Shorts)", 
-                  price: 1199, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/b138a286dec1bf6c5624234a9d724dda.png-z-0_0_f-webp_1024x1024.webp?v=1734440043", 
+                  price: 1199,  
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/b138a286dec1bf6c5624234a9d724dda.png-z-0_0_f-webp_1024x1024.webp?v=1734440043",
+    "https://indiansoccermart.in/cdn/shop/files/aa7e00e88ef4682e49da6d4ca420a834.png-z-0_0_f-webp_1024x1024.webp?v=1734440042",
+    "https://indiansoccermart.in/cdn/shop/files/bc4ae9e7aab63cab66c46599335c8e4a.png-z-0_0_f-webp_1024x1024.webp?v=1734440042",
+    "https://indiansoccermart.in/cdn/shop/files/23283d30f09c9d184df0f80c82d07205.png-z-0_0_f-webp_1024x1024.webp?v=1734440043",
+    "https://indiansoccermart.in/cdn/shop/files/d4f4b89f706869110bbbabaa07226db9.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440042",
+    "https://indiansoccermart.in/cdn/shop/files/4890fb4e549e3de0339afc0f0ec5b6c1.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440043",
+    "https://indiansoccermart.in/cdn/shop/files/fd5ddcaff1946e55a31cabd6c83d96b1.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440042",
+    "https://indiansoccermart.in/cdn/shop/files/19d0279483791588df2cf929a05e623f.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440042",
+    "https://indiansoccermart.in/cdn/shop/files/f9cb2ffa8f9699cc9e128647bd33ad1a.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440043",
+    "https://indiansoccermart.in/cdn/shop/files/54d5217d91fec7b6ffdefd0da7ceeedf.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440043"
+  ],
                   sizes: { S: 1, M: 1, L: 3, XL: 3, XXL: 0 } 
                 },
 
                 { 
                   id: 11, 
                   name: "Liverpool Home Set 2024/25 (Jersey + Shorts)", 
-                  price: 1199, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/6e4389ff7bdf59aa6e413f57c80e4cbf.png-z-0_0_f-webp_1024x1024.webp?v=1730979183", 
+                  price: 1199,  
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/6e4389ff7bdf59aa6e413f57c80e4cbf.png-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/c8439625fe47c8ee7f98aa1d9f2162e1.png-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/a132e30768e1670bd65fc41b495d605e.png-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/9fbc05184ca17c918b603531beb06b1b.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/de3ebf52eb09b838c359617d90c6dbde.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/1b8f9130cde6b9c0fbe717e7044a9aa0.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/6e80a182929d2da220dcfff5e12e43d4.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/7498911a321adb2c795d21049955310d.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/a3b20bb6425c0eea2a83b786cc973386.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/902fa40d9a974fb7f135976c9ed550c4.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/ed2de430b234e7ebbfbe66a72a5382d5.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
+    "https://indiansoccermart.in/cdn/shop/files/7523512d4dcba152d872b3d014935e61.png-z-0_0_f-webp_1024x1024.webp?v=1730979183"
+  ],
+
                   sizes: { S: 3, M: 4, L: 2, XL: 1, XXL: 0 } 
                 },
 
                 { 
                   id: 12, 
                   name: "Liverpool Away Set 2024/25 (Jersey + Shorts)", 
-                  price: 1199, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/1726826680438599754_1024x1024.png?v=1728035261", 
+                  price: 1199,  
+                  images: [
+    "https://indiansoccermart.in/cdn/shop/files/1726826680438599754_1024x1024.png?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/95ff1886e9391311fe0128407561caf84207a5_1024x1024.png?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/26606e8bb441a344e1def4104aae2e354207a3_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/a7c2a878f0d2d2ff74bbab4c4b45cac94207ab_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/fe46a26ef519aedc2d001a13bad9d2824207ab_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/93a94154e6a80445076e9651fe3087c14bb5db_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/2ee37783c67aa646a4116e0434da528f4bb5dc_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/304f7083ba1dc0a27c13bb25e322c2ce4bb5d4_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/07e64060e126a4f286f91ed08f36b3164bb5dd_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/c6bdf2d207ea44e1c5bbb98661161798ee4cbd_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/28e72e5c032bdf2c067e74f407e92958ee4cb7_1024x1024.jpg?v=1728035261",
+    "https://indiansoccermart.in/cdn/shop/files/078f972f64c283d59a60325f55746a837e9219_1024x1024.png?v=1728035261"
+  ],
+
                   sizes: { S: 2, M: 5, L: 5, XL: 5, XXL: 0 } 
                 }
 
@@ -1971,12 +2194,35 @@ window.confirmPaymentSuccess = async function() {
                     productCard.classList.add('out-of-stock');
                 }
                 
-                productCard.innerHTML = `
-                    <img src="${product.image}" alt="${product.name}" class="product-image">
-                    <div class="product-info">
-                        <h3 class="product-title">${product.name}</h3>
-                                        <p class="product-price">${formatIndianCurrency(product.price)}</p>
-                ${(sectionId === 'jerseys' || sectionId === 'kits') && product.sizes ? `
+// Check if product has multiple images
+const hasMultipleImages = product.images && product.images.length > 1;
+
+productCard.innerHTML = `
+    <div class="product-image-container">
+        ${hasMultipleImages ? `
+            <div class="product-image-slider" id="slider-${sectionId}-${product.id}">
+                ${product.images.map((img, index) => `
+                    <div class="product-image-slide ${index === 0 ? 'active' : ''}">
+                        <img src="${img}" alt="${product.name} - view ${index + 1}">
+                    </div>
+                `).join('')}
+            </div>
+            <button class="product-image-nav product-image-prev" data-id="${product.id}" data-section="${sectionId}">❮</button>
+            <button class="product-image-nav product-image-next" data-id="${product.id}" data-section="${sectionId}">❯</button>
+            <div class="product-image-dots">
+                ${product.images.map((_, index) => `
+                    <button class="product-image-dot ${index === 0 ? 'active' : ''}" 
+                            data-id="${product.id}" data-section="${sectionId}" data-index="${index}"></button>
+                `).join('')}
+            </div>
+        ` : `
+            <img src="${product.image}" alt="${product.name}" class="product-image">
+        `}
+    </div>
+    <div class="product-info">
+        <h3 class="product-title">${product.name}</h3>
+        <p class="product-price">${formatIndianCurrency(product.price)}</p>
+        ${(sectionId === 'jerseys' || sectionId === 'kits') && product.sizes ? `
     <div class="size-selector">
         ${Object.entries(product.sizes).map(([size, stock]) => `
             <button class="size-btn ${stock === 0 ? 'out-of-stock-size' : ''}" 
@@ -2038,6 +2284,9 @@ addToCartButtons.forEach(button => {
         addToCart(productId, section, selectedSize);
     });
 });
+
+
+
         }
 
 // Add product to cart
@@ -2249,6 +2498,85 @@ function removeFromCart(productId, size) {
             overlay.classList.remove('open');
             document.body.style.overflow = 'auto';
         }
+
+// Product image slider functionality
+document.addEventListener('click', function(e) {
+    // Next button
+    if (e.target.classList.contains('product-image-next')) {
+        const productId = e.target.getAttribute('data-id');
+        const section = e.target.getAttribute('data-section');
+        navigateSlider(productId, section, 1);
+    }
+    
+    // Previous button
+    if (e.target.classList.contains('product-image-prev')) {
+        const productId = e.target.getAttribute('data-id');
+        const section = e.target.getAttribute('data-section');
+        navigateSlider(productId, section, -1);
+    }
+    
+    // Dot navigation
+    if (e.target.classList.contains('product-image-dot')) {
+        const productId = e.target.getAttribute('data-id');
+        const section = e.target.getAttribute('data-section');
+        const index = parseInt(e.target.getAttribute('data-index'));
+        goToSlide(productId, section, index);
+    }
+});
+
+function navigateSlider(productId, section, direction) {
+    const slider = document.getElementById(`slider-${section}-${productId}`);
+    if (!slider) return;
+    
+    const slides = slider.querySelectorAll('.product-image-slide');
+    const dotsContainer = slider.parentElement.querySelector('.product-image-dots');
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.product-image-dot') : [];
+    
+    let currentIndex = 0;
+    slides.forEach((slide, index) => {
+        if (slide.classList.contains('active')) {
+            currentIndex = index;
+        }
+    });
+    
+    let newIndex = currentIndex + direction;
+    if (newIndex < 0) newIndex = slides.length - 1;
+    if (newIndex >= slides.length) newIndex = 0;
+    
+    // Update slides
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[newIndex].classList.add('active');
+    
+    // Update dots
+    dots.forEach(dot => dot.classList.remove('active'));
+    if (dots[newIndex]) dots[newIndex].classList.add('active');
+    
+    // Move slider
+    slider.style.transform = `translateX(-${newIndex * 100}%)`;
+}
+
+function goToSlide(productId, section, index) {
+    const slider = document.getElementById(`slider-${section}-${productId}`);
+    if (!slider) return;
+    
+    const slides = slider.querySelectorAll('.product-image-slide');
+    const dotsContainer = slider.parentElement.querySelector('.product-image-dots');
+    const dots = dotsContainer ? dotsContainer.querySelectorAll('.product-image-dot') : [];
+    
+    if (index >= 0 && index < slides.length) {
+        // Update slides
+        slides.forEach(slide => slide.classList.remove('active'));
+        slides[index].classList.add('active');
+        
+        // Update dots
+        dots.forEach(dot => dot.classList.remove('active'));
+        dots[index].classList.add('active');
+        
+        // Move slider
+        slider.style.transform = `translateX(-${index * 100}%)`;
+    }
+}
+
     </script>
 </body>
 </html>
