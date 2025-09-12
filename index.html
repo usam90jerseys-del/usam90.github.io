@@ -1220,6 +1220,7 @@
         <li><a href="#boots">Boots</a></li>
         <li><a href="#kits">Kits</a></li>
         <li><a href="#rewards" id="rewards-button">Rewards</a></li>
+        <li><a href="#" id="support-button">Support</a></li>
         <li><a href="#cart" class="cart-icon" id="cart-button">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count">0</span>
@@ -1326,16 +1327,44 @@
 </div>
 
 <button class="checkout-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
-<!-- ADD GPay BUTTON HERE -->
-<button id="gpay-pay-btn" style="width: 100%; padding: 1rem; background: #4285f4; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
-    <svg class="gpay-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
-        <path fill="white" d="M11.6 10.2h5.4V8.5h-5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h2.7c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5h-5.4v1.7h5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h-2.7c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h5.4V24H11.6c-3.3 0-6-2.7-6-6s2.7-6 6-6zm-5.4 6c0-3.3 2.7-6 6-6h5.4v1.7h-5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h2.7c-.8 0-1.5.7-1.5 1.5s.7 1.5-1.5 1.5h-5.4v1.7h5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5-1.5 1.5h-2.7c-.8 0-1.5.7-1.5 1.5s.7 1.5-1.5 1.5h5.4V24H11.6c-3.3 0-6-2.7-6-6z"/>
-    </svg>
-    Pay with Google Pay
-</button>
-<p style="font-size: 14px; color: #a0aec0; margin-top: 10px; text-align: center;">
-    You'll be redirected to Google Pay to complete your payment
-</p>
+        <!-- ADD GPay BUTTON HERE -->
+        <button id="gpay-pay-btn" style="width: 100%; padding: 1rem; background: #4285f4; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <svg class="gpay-icon" viewBox="0 0 24 24" style="width: 20px; height: 20px;">
+                <path fill="white" d="M11.6 10.2h5.4V8.5h-5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h2.7c.8 0 1.5.7 1.5 1.5s-.7 1.5-1.5 1.5h-5.4v1.7h5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h-2.7c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h5.4V24H11.6c-3.3 0-6-2.7-6-6s2.7-6 6-6zm-5.4 6c0-3.3 2.7-6 6-6h5.4v1.7h-5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5 1.5 1.5h2.7c-.8 0-1.5.7-1.5 1.5s.7 1.5-1.5 1.5h-5.4v1.7h5.4c-.8 0-1.5.7-1.5 1.5s.7 1.5-1.5 1.5h-2.7c-.8 0-1.5.7-1.5 1.5s.7 1.5-1.5 1.5h5.4V24H11.6c-3.3 0-6-2.7-6-6z"/>
+            </svg>
+            Pay with Google Pay
+        </button>
+        <p style="font-size: 14px; color: #a0aec0; margin-top: 10px; text-align: center;">
+            You'll be redirected to Google Pay to complete your payment
+        </p>
+
+        <!-- Support Modal -->
+        <div id="support-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--darker-bg); padding: 2rem; border-radius: 10px; z-index: 1000; width: 90%; max-width: 500px; box-shadow: 0 5px 25px rgba(0,0,0,0.5);">
+            <div style="position: relative;">
+                <button id="close-support" style="position: absolute; top: -10px; right: -10px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center;">Customer Support</h2>
+                <div class="form-group">
+                    <label for="support-subject">Subject</label>
+                    <select id="support-subject" class="form-group input">
+                        <option value="">Select an issue</option>
+                        <option value="Order Issue">Order Issue</option>
+                        <option value="Product Question">Product Question</option>
+                        <option value="Website Bug">Website Bug</option>
+                        <option value="Payment Problem">Payment Problem</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="support-message">Message</label>
+                    <textarea id="support-message" class="form-group input" placeholder="Please describe your issue in detail..." rows="5" style="width: 100%; padding: 15px; background: #1e293b; color: #fff; border: 1px solid #334155; border-radius: 8px; font-size: 16px; resize: vertical;"></textarea>
+                </div>
+                <button class="btn" id="submit-support">Submit Ticket</button>
+                <p id="support-feedback" style="margin-top: 15px; text-align: center; display: none;"></p>
+            </div>
+        </div>
+        <div id="support-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 999;"></div>
+        </div>
+    </div>
         </div>
     </div>
 
@@ -1603,102 +1632,80 @@ function generateOrderId() {
             jerseys: [
                 { 
                   id: 1, 
-                  name: "Ronaldo 7 - Al Nassr Home 2023/24 - Master Quality", 
-                  price: 999, 
+                  name: "Neymar Jr. Barcelona x Santos 2025/26 Jersey", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/10b6d1e397ba64d48bd905a1a3ff7d27.png-z-621_621_f-webp_1024x1024.webp?v=1692695058",
-    "https://indiansoccermart.in/cdn/shop/files/bb0a8e415ab55dae79a5a48860a2e645.png-z-621_621_f-webp_750x.webp?v=1692695058",
-    "https://indiansoccermart.in/cdn/shop/files/2db92f3327a14a8cd92dd45b9893b882.JPG-z-621_621_f-webp_750x.webp?v=1692695059",
-    "https://indiansoccermart.in/cdn/shop/files/8f7844459d2369912e0235ec5cf97386.JPG-z-621_621_f-webp_750x.webp?v=1692695060",
-    "https://indiansoccermart.in/cdn/shop/files/79f05cc4da4044a80aae64087448f6d7.JPG-z-621_621_f-webp_750x.webp?v=1692695060",
-    "https://indiansoccermart.in/cdn/shop/files/4258950a7d5af2c3999a4c5d1abfc406.JPG-z-621_621_f-webp_750x.webp?v=1692695061"
+    "https://i.ibb.co/ymCv3YMv/Whats-App-Image-2025-09-07-at-11-44-51-274c97d7.jpg",
+    "https://i.ibb.co/RG31JPTw/Whats-App-Image-2025-09-07-at-11-44-51-22290be3.jpg"
   ],
-                  sizes: { S: 4, M: 2, L: 4, XL: 2, XXL: 2  } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
                 },
 
                 { 
                   id: 2, 
-                  name: "Portugal Home 2022 World Cup Jersey - Player Version", 
-                  price: 1099, 
+                  name: "Liverpool Red Bird Fivesleeve Polo with Zip", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/products/c60dd89985c5dce836ea1528a15871fc_1024x1024.png?v=1667051079",
-    "https://indiansoccermart.in/cdn/shop/products/c4a061758850d6372e586ed27e59d96e_750x.png?v=1667051078",
-    "https://indiansoccermart.in/cdn/shop/products/b41007802264b5378f4716d9a694f01f_750x.jpg?v=1667051079",
-    "https://indiansoccermart.in/cdn/shop/products/975e986a105d62ba4cbb0722dbedc6b5_750x.jpg?v=1667051078"
+    "https://i.ibb.co/ymtRwMw2/Whats-App-Image-2025-09-07-at-11-44-52-44557c21.jpg",
+    "https://i.ibb.co/v4HJ485k/Whats-App-Image-2025-09-07-at-11-44-52-09da3cfe.jpg"
   ],
-                  sizes: { S: 0, M: 0, L: 1, XL: 0, XXL: 1  } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
                 },
 
                 { 
                   id: 3, 
-                  name: "Belgium Away Euro 2024 - Master Quality", 
-                  price: 849,
+                  name: "Germany 1996 Euro Away Jersey", 
+                  price: 699,
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/80a2601d46c52512d43532f4547a42a4.png-z-0_0_f-webp_1024x1024.webp?v=1738314817",
-    "https://indiansoccermart.in/cdn/shop/files/432b9381c8dc62fb4a8ba1c3f7809cc6.png-z-0_0_f-webp_1024x1024.webp?v=1738314817",
-    "https://indiansoccermart.in/cdn/shop/files/7972c43e27d8ea4bd4cd6e4aea9cf2da.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817",
-    "https://indiansoccermart.in/cdn/shop/files/ca4990da45611da9611035afbdcaf562.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817",
-    "https://indiansoccermart.in/cdn/shop/files/20220ed221475dc8abf93f81d9a5223b.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817",
-    "https://indiansoccermart.in/cdn/shop/files/2d0c7be0597a605d2ba4bbc93e1d842a.JPG-z-0_0_f-webp_1024x1024.webp?v=1738314817"
+    "https://i.ibb.co/hxhkpff5/Whats-App-Image-2025-09-07-at-11-44-53-11396e28.jpg",
+    "https://i.ibb.co/VcLM7DnQ/Whats-App-Image-2025-09-07-at-11-44-53-5f33b66d.jpg"
   ], 
-                  sizes: { S: 3, M: 3, L: 4, XL: 4, XXL: 0  } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
                 },
 
                 { 
                   id: 4, 
-                  name: "Japan x Y-3 Away 2024 - Master Quality", 
-                  price: 849, 
+                  name: "Barcelona Travis Scott Polo Fivesleeve", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/1719480297093757639_1024x1024.png?v=1723638993",
-    "https://indiansoccermart.in/cdn/shop/files/1719480297732589630_1024x1024.png?v=1723638994",
-    "https://indiansoccermart.in/cdn/shop/files/1721977724664953882_1024x1024.png?v=1723638994",
-    "https://indiansoccermart.in/cdn/shop/files/1721977724821719471_1024x1024.png?v=1723638994",
-    "https://indiansoccermart.in/cdn/shop/files/1721977725398260893_1024x1024.png?v=1723638993",
-    "https://indiansoccermart.in/cdn/shop/files/1721977725512087228_1024x1024.png?v=1723638994",
-    "https://indiansoccermart.in/cdn/shop/files/1721977725564691887_1024x1024.png?v=1723638994"
+    "https://i.ibb.co/cc2sNKjG/Whats-App-Image-2025-09-07-at-11-44-53-8c76b351.jpg",
+    "https://i.ibb.co/BVgk7T4N/Whats-App-Image-2025-09-07-at-11-44-54-5db6aa42.jpg",
+    "https://i.ibb.co/tFynK3x/Whats-App-Image-2025-09-09-at-15-54-16-66c6350b.jpg"
   ],
-                  sizes: { S: 2, M: 1, L: 0, XL: 5, XXL: 0  } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
                 },
 
                 { 
                   id: 5, 
-                  name: "Japan x Y-3 Home 2024 - Master Quality", 
-                  price: 849,
+                  name: "Brazil 2002 World Cup Home Jersey Ronaldo #9", 
+                  price: 699,
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/1ee81669f36a96136deeafa2c9b5b6eb.png-z-0_0_f-webp_1024x1024.webp?v=1731015345",
-    "https://indiansoccermart.in/cdn/shop/files/7709d32969709469d7540dd48d9c19e8.png-z-0_0_f-webp_1024x1024.webp?v=1731015345",
-    "https://indiansoccermart.in/cdn/shop/files/82666c03a32e2f307017c95c18575c62.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
-    "https://indiansoccermart.in/cdn/shop/files/7d3fd15bd6f7a612e5818fafb76015f8.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
-    "https://indiansoccermart.in/cdn/shop/files/659b3a4bc29d898b66a72f8fe3ebd626.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
-    "https://indiansoccermart.in/cdn/shop/files/a4b043353dc5eefc43d5ad2a9637d43c.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345",
-    "https://indiansoccermart.in/cdn/shop/files/51a892c97d7361a6e2263f3a3ab68112.JPG-z-0_0_f-webp_1024x1024.webp?v=1731015345"
+    "https://i.ibb.co/V0QQLC17/Whats-App-Image-2025-09-09-at-15-54-54-60c570b3.jpg",
+    "https://i.ibb.co/rRYymQ1y/Whats-App-Image-2025-09-09-at-15-54-54-c7fcb0db.jpg"
   ], 
-                  sizes: { S: 1, M: 1, L: 4, XL: 3, XXL: 0  } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 6, 
-                  name: "France Home Euro 2024 - Master Quality", 
-                  price: 849, 
+                  name: "FC Barcelona 2025/2026 Lamine Yamal Special Edition Pink Dreamwave Jersey", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/74ffcc8507c86339375ab6b1f0a8ea61.png-z-0_0_f-webp_1024x1024.webp?v=1711528863",
-    "https://indiansoccermart.in/cdn/shop/files/1028a1c9118c0a9d1c54bece02bfd5ce.png-z-0_0_f-webp_1024x1024.webp?v=1711528863"
+    "https://i.ibb.co/v6ks4KrB/Whats-App-Image-2025-09-09-at-15-55-08-4c45b938.jpg",
+    "https://i.ibb.co/Z675CB5N/Whats-App-Image-2025-09-09-at-15-55-08-c0822dbd.jpg"
   ],
-                  sizes: { S: 1, M: 4, L: 4, XL: 4, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 7, 
-                  name: "Al Nassr Away 2024/25 - Master Quality", 
-                  price: 749,
+                  name: "Barcelona × Travis Scott 2024/25 Away Kit", 
+                  price: 699,
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/49d5e90059e6ac861c44410490e462a4.png-z-0_0_f-webp_1024x1024.webp?v=1730982107",
-    "https://indiansoccermart.in/cdn/shop/files/2459ca9be35a1b670b6f3764309d4d79.png-z-0_0_f-webp_750x.webp?v=1730982107",
-    "https://indiansoccermart.in/cdn/shop/files/1e87615c75b8531c8926709fdc91f925.jpg-z-0_0_f-webp_750x.webp?v=1730982107",
-    "https://indiansoccermart.in/cdn/shop/files/ef4e004f670bad1f1c0721a620c86b7b.jpg-z-0_0_f-webp_750x.webp?v=1730982107",
-    "https://indiansoccermart.in/cdn/shop/files/5c48d3dc52d1d0a84220885467fe1250.jpg-z-0_0_f-webp_750x.webp?v=1730982107"
+    "https://i.ibb.co/67Q5sH4n/Whats-App-Image-2025-09-09-at-15-55-26-c6bc9166.jpg",
+    "https://i.ibb.co/Kp3BgG2q/Whats-App-Image-2025-09-09-at-15-55-25-6f4ecab5.jpg"
   ], 
-                  sizes: { S: 2, M: 1, L: 5, XL: 4, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
@@ -1710,19 +1717,19 @@ function generateOrderId() {
     "https://i.ibb.co/XfnhYgr4/Whats-App-Image-2025-09-07-at-11-44-50-eafdc613.jpg",
     "https://i.ibb.co/r2xhSNwx/Whats-App-Image-2025-09-07-at-11-44-51-0e9156fe.jpg"
   ], 
-                  sizes: { S: 1, M: 1, L: 4, XL: 3, XXL: 0  } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
                 },
 
                 { 
                   id: 9, 
-                  name: "ARGENTINA GOAT EDITION KIT 🖤👑", 
+                  name: "Argentina GOAT Edition Kit", 
                   price: 699,
                   images: [
      "https://i.ibb.co/qY1s12F8/Whats-App-Image-2025-09-08-at-10-08-53-54996a0e.jpg",
      "https://i.ibb.co/qM6FWhdm/Whats-App-Image-2025-09-08-at-10-08-54-AM.jpg"
   ], 
                   sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
-                },
+                }
 
 
 
@@ -1733,182 +1740,124 @@ function generateOrderId() {
             kits: [ 
                 { 
                   id: 1, 
-                  name: "Liverpool Home Kit 2023/24 (Jersey + Shorts)", 
-                  price: 699, 
+                  name: "Real Madrid 2011-12 Home Retro Jersey Set", 
+                  price: 1199, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/PhotoRoom-20230816_202938_1024x1024.png?v=1692198045",
-    "https://indiansoccermart.in/cdn/shop/products/image_79e30e41-cf37-4cf8-a9da-63de9ee1a441_1024x1024.jpg?v=1692198045",
-    "https://indiansoccermart.in/cdn/shop/files/ca367c5350a83a2d1d3164edb99c901b.jpg-z-0_0_f-webp_1024x1024.webp?v=1716995343",
-    "https://indiansoccermart.in/cdn/shop/files/bbe4c1f648b3f75c2889169b1bf8fbe3.png-z-0_0_f-webp_1024x1024.webp?v=1716995343"
+    "https://i.ibb.co/mVxW3Bgk/Whats-App-Image-2025-09-08-at-11-21-57-f6c78bb2.jpg"
   ],
-                  sizes: { S: 2, M: 0, L: 1, XL: 0, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 2, 
-                  name: "Venezia Home kit 2023/24 (Jersey+Shorts)", 
-                  price: 649, 
-                  image: "https://indiansoccermart.in/cdn/shop/files/IMG-9751_1024x1024.png?v=1722886570",
-                  sizes: { S: 0, M: 0, L: 0, XL: 0, XXL: 0 }
+                  name: "Real Madrid 2016-17 Away Set", 
+                  price: 699, 
+                  images: [
+    "https://i.ibb.co/21vLskCL/Whats-App-Image-2025-09-08-at-11-21-57-1831ca32.jpg"
+  ], 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
                 },
 
                 { 
                   id: 3, 
-                  name: "Miami Home Kit 2023/24 (Jersey + Shorts)", 
-                  price: 649, 
+                  name: "AC Milan 2006-07 Retro Home Set", 
+                  price: 1199, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/Inter-Miami-Home-Kids-Jersey-With-Shorts-2023-24_1024x1024.jpg?v=1716987838",
-    "https://indiansoccermart.in/cdn/shop/files/89ab5080afc6c3c0e89966d92bd08f38_1_1024x1024.png?v=1688547987",
-    "https://indiansoccermart.in/cdn/shop/files/Inter-Miami-Home-Kids-Jersey-With-Shorts-2023-24_1024x1024.jpg?v=1716987838",
-    "https://indiansoccermart.in/cdn/shop/files/d25a768ae56913fbaedbcfea50eb6ac9_1024x1024.jpg?v=1716987837",
-    "https://indiansoccermart.in/cdn/shop/files/264f2a500dbe1dd8660530cb725397c0_1024x1024.jpg?v=1716987837",
-    "https://indiansoccermart.in/cdn/shop/files/791b1782c3801888dc123630d82745a5_1024x1024.jpg?v=1716987837",
-    "https://indiansoccermart.in/cdn/shop/files/5f0aca1d72c93d6f497512e34dfe7f5a_1024x1024.jpg?v=1716987837"
+    "https://i.ibb.co/MkbbxxtN/Whats-App-Image-2025-09-08-at-11-21-57-eb5d8dc5.jpg"
   ],
-                  sizes: { S: 0, M: 0, L: 0, XL: 19, XXL: 0 }
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 }
                 },
 
                 { 
                   id: 4, 
-                  name: "Italy Away Kit Euro 2024 (Jersey + Shorts)", 
-                  price: 959, 
+                  name: "Japan Naruto x Sasuke limited edition fan version Set", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/GridArt-20240510_200104349_1024x1024.jpg?v=1715351519",
-    "https://indiansoccermart.in/cdn/shop/files/dcf6857694d6133eb193cb88dfa65ae8.png-z-0_0_f-webp_1024x1024.webp?v=1715351519",
-    "https://indiansoccermart.in/cdn/shop/files/5d1aa9246d6e29a710639d1a3be54c9e.png-z-0_0_f-webp_1024x1024.webp?v=1715351519",
-    "https://indiansoccermart.in/cdn/shop/files/4ce1f29bf6fe4362d59b029b84cb6f09.png-z-0_0_f-webp_1024x1024.webp?v=1715351519",
-    "https://indiansoccermart.in/cdn/shop/files/0694e788ece355b69cb1671fb07807d4.JPG-z-0_0_f-webp_1024x1024.webp?v=1715351519",
-    "https://indiansoccermart.in/cdn/shop/files/5b46e9784318a150b90e83f4afbd3290.png-z-0_0_f-webp_1024x1024.webp?v=1715351519"
+    "https://i.ibb.co/bMPV6jK1/Whats-App-Image-2025-09-08-at-11-21-58-62968aa7.jpg"
   ],
-                  sizes: { S: 3, M: 1, L: 1, XL: 2, XXL: 0 }
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 }
                 },
 
                 { 
                   id: 5, 
-                  name: "Italy Home Kit Euro 2024 (Jersey + Shorts)", 
-                  price: 859,
+                  name: "Japan White Dragon Special Edition Set", 
+                  price: 699,
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/514aab244e1c5b2c005c36f93b578693.png-z-0_0_f-webp_1024x1024.webp?v=1715350879",
-    "https://indiansoccermart.in/cdn/shop/files/cfc87a0c0edc7314c03a41afe2927f26.png-z-0_0_f-webp_1024x1024.webp?v=1715350879",
-    "https://indiansoccermart.in/cdn/shop/files/729cee4f79d789d1f58d903c6c731351.png-z-0_0_f-webp_1024x1024.webp?v=1715350880",
-    "https://indiansoccermart.in/cdn/shop/files/623c290faaf766d93aa2a72c219b92c8.png-z-0_0_f-webp_1024x1024.webp?v=1715350879"
+    "https://i.ibb.co/RpczZZZr/Whats-App-Image-2025-09-08-at-11-21-58-90c6eef9.jpg"
   ], 
-                  sizes: { S: 4, M: 3, L: 5, XL: 3, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 6, 
-                  name: "France Home Kit Euro 2024 (Jersey + Shorts )", 
-                  price: 959, 
+                  name: "Japan Goku Special Edition Set", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/708565ff58f9ae161ac2a575b7aab4c0.png-z-0_0_f-webp_1024x1024.webp?v=1715352712",
-    "https://indiansoccermart.in/cdn/shop/files/9f361c1fa68d960b0abfd19d44ed1177.png-z-0_0_f-webp_1024x1024.webp?v=1715352711",
-    "https://indiansoccermart.in/cdn/shop/files/088488f0c262a97a715d1ed2fb09ca70.png-z-0_0_f-webp_1024x1024.webp?v=1715352710",
-    "https://indiansoccermart.in/cdn/shop/files/e1be5aa5e7939b15c0a18c43c820f267.JPG-z-0_0_f-webp_1024x1024.webp?v=1715352710",
-    "https://indiansoccermart.in/cdn/shop/files/1afb6f829e018f8e86836fff303e7916.png-z-0_0_f-webp_1024x1024.webp?v=1715352711",
-    "https://indiansoccermart.in/cdn/shop/files/0e5f08ef33df91a2182ffd9f63a64d9f.png-z-0_0_f-webp_1024x1024.webp?v=1715352711"
+    "https://i.ibb.co/xq2c0F8K/Whats-App-Image-2025-09-08-at-11-21-58-26e3993a.jpg"
   ],
-                  sizes: { S: 5, M: 4, L: 2, XL: 3, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 7, 
-                  name: "Liverpool Away Set 2020/21 (Jersey + Shorts)", 
-                  price: 1199, 
+                  name: "Real Madrid 2025/26 Home Kit", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/rn-image_picker_lib_temp_9af720e3-946a-4dee-bcdd-62261e0d0a97_1024x1024.jpg?v=1752834658",
-    "https://indiansoccermart.in/cdn/shop/files/rn-image_picker_lib_temp_b7e3caec-b41b-459c-be62-018a3116139b_1024x1024.jpg?v=1752834658"
+    "https://i.ibb.co/x8jR7910/Whats-App-Image-2025-09-08-at-11-21-59-e1923cfb.jpg"
   ],
-                  sizes: { S: 3, M: 2, L: 4, XL: 3, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 8, 
-                  name: "France Away Kit Euro 2024 (Jersey + Shorts)", 
-                  price: 1199, 
+                  name: "Manchester City 2025/26 Home Kit", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/2712e2a3668aad9599317517a8fa820f.png-z-0_0_f-webp_1024x1024.webp?v=1734377757",
-    "https://indiansoccermart.in/cdn/shop/files/3563c6bfb0c5a328bb5137542b42e51c.png-z-0_0_f-webp_1024x1024.webp?v=1734377757",
-    "https://indiansoccermart.in/cdn/shop/files/03799a2c9e352cacbc7156c257ba027d.jpg-z-0_0_f-webp_1_1024x1024.webp?v=1734377757",
-    "https://indiansoccermart.in/cdn/shop/files/6bcf42ca9d2cb70ab059555a16522af9.jpg-z-0_0_f-webp_1_1024x1024.webp?v=1734377757"
+    "https://i.ibb.co/zqdkgGx/Whats-App-Image-2025-09-08-at-11-22-00-c6fbc10e.jpg"
   ], 
-                  sizes: { S: 3, M: 1, L: 3, XL: 1, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 9, 
-                  name: "Miami Away Kit 2024/25 (Jersey + Shorts)", 
-                  price: 1199, 
+                  name: "AC Milan 2025/26 Home Set", 
+                  price: 699, 
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/5a3715e031ba981a2a94f7a01d598705.png-z-0_0_f-webp_1024x1024.webp?v=1734439541",
-    "https://indiansoccermart.in/cdn/shop/files/1062f128347da1c9844b3fbbdf2e560b.png-z-0_0_f-webp_1024x1024.webp?v=1734439541",
-    "https://indiansoccermart.in/cdn/shop/files/efd74d1ffcdf112eb342921704ecbed7.png-z-0_0_f-webp_1024x1024.webp?v=1734439541",
-    "https://indiansoccermart.in/cdn/shop/files/0217523c79f206386af1615264974a15.png-z-0_0_f-webp_1024x1024.webp?v=1734439541"
+    "https://i.ibb.co/Yqm8mw4/Whats-App-Image-2025-09-08-at-11-22-00-22762b88.jpg"
   ],
-                  sizes: { S: 2, M: 2, L: 4, XL: 3, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 10, 
-                  name: "Liverpool Third Set 2024/25 (Jersey + Shorts)", 
-                  price: 1199,  
+                  name: "Tottenham Hotspur 2025/26 home kit", 
+                  price: 699,  
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/b138a286dec1bf6c5624234a9d724dda.png-z-0_0_f-webp_1024x1024.webp?v=1734440043",
-    "https://indiansoccermart.in/cdn/shop/files/aa7e00e88ef4682e49da6d4ca420a834.png-z-0_0_f-webp_1024x1024.webp?v=1734440042",
-    "https://indiansoccermart.in/cdn/shop/files/bc4ae9e7aab63cab66c46599335c8e4a.png-z-0_0_f-webp_1024x1024.webp?v=1734440042",
-    "https://indiansoccermart.in/cdn/shop/files/23283d30f09c9d184df0f80c82d07205.png-z-0_0_f-webp_1024x1024.webp?v=1734440043",
-    "https://indiansoccermart.in/cdn/shop/files/d4f4b89f706869110bbbabaa07226db9.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440042",
-    "https://indiansoccermart.in/cdn/shop/files/4890fb4e549e3de0339afc0f0ec5b6c1.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440043",
-    "https://indiansoccermart.in/cdn/shop/files/fd5ddcaff1946e55a31cabd6c83d96b1.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440042",
-    "https://indiansoccermart.in/cdn/shop/files/19d0279483791588df2cf929a05e623f.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440042",
-    "https://indiansoccermart.in/cdn/shop/files/f9cb2ffa8f9699cc9e128647bd33ad1a.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440043",
-    "https://indiansoccermart.in/cdn/shop/files/54d5217d91fec7b6ffdefd0da7ceeedf.JPG-z-0_0_f-webp_1024x1024.webp?v=1734440043"
+    "https://i.ibb.co/4g5z7THg/Whats-App-Image-2025-09-08-at-11-22-01-0bcf1671.jpg"
   ],
-                  sizes: { S: 1, M: 1, L: 3, XL: 3, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 11, 
-                  name: "Liverpool Home Set 2024/25 (Jersey + Shorts)", 
-                  price: 1199,  
+                  name: "Inter Miami CF 25/26 Home Set", 
+                  price: 699,  
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/6e4389ff7bdf59aa6e413f57c80e4cbf.png-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/c8439625fe47c8ee7f98aa1d9f2162e1.png-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/a132e30768e1670bd65fc41b495d605e.png-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/9fbc05184ca17c918b603531beb06b1b.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/de3ebf52eb09b838c359617d90c6dbde.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/1b8f9130cde6b9c0fbe717e7044a9aa0.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/6e80a182929d2da220dcfff5e12e43d4.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/7498911a321adb2c795d21049955310d.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/a3b20bb6425c0eea2a83b786cc973386.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/902fa40d9a974fb7f135976c9ed550c4.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/ed2de430b234e7ebbfbe66a72a5382d5.JPG-z-0_0_f-webp_1024x1024.webp?v=1730979183",
-    "https://indiansoccermart.in/cdn/shop/files/7523512d4dcba152d872b3d014935e61.png-z-0_0_f-webp_1024x1024.webp?v=1730979183"
+    "https://i.ibb.co/WvDcdhd2/Whats-App-Image-2025-09-08-at-11-22-01-ff2a4a92.jpg"
   ],
 
-                  sizes: { S: 3, M: 4, L: 2, XL: 1, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 },
 
                 { 
                   id: 12, 
-                  name: "Liverpool Away Set 2024/25 (Jersey + Shorts)", 
-                  price: 1199,  
+                  name: "Paris Saint-Germain (PSG) x Jordan 2024/25 Fourth Kit", 
+                  price: 699,  
                   images: [
-    "https://indiansoccermart.in/cdn/shop/files/1726826680438599754_1024x1024.png?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/95ff1886e9391311fe0128407561caf84207a5_1024x1024.png?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/26606e8bb441a344e1def4104aae2e354207a3_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/a7c2a878f0d2d2ff74bbab4c4b45cac94207ab_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/fe46a26ef519aedc2d001a13bad9d2824207ab_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/93a94154e6a80445076e9651fe3087c14bb5db_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/2ee37783c67aa646a4116e0434da528f4bb5dc_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/304f7083ba1dc0a27c13bb25e322c2ce4bb5d4_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/07e64060e126a4f286f91ed08f36b3164bb5dd_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/c6bdf2d207ea44e1c5bbb98661161798ee4cbd_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/28e72e5c032bdf2c067e74f407e92958ee4cb7_1024x1024.jpg?v=1728035261",
-    "https://indiansoccermart.in/cdn/shop/files/078f972f64c283d59a60325f55746a837e9219_1024x1024.png?v=1728035261"
+    "https://i.ibb.co/5xCBhrjJ/Whats-App-Image-2025-09-08-at-11-22-01-9ccc3104.jpg"
   ],
 
-                  sizes: { S: 2, M: 5, L: 5, XL: 5, XXL: 0 } 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1 } 
                 }
 
             ]
@@ -1935,25 +1884,81 @@ function formatIndianCurrency(amount) {
         return `₹${lastThree}.${decimal}`;
     }
 }
-        // Loyalty Program Data
+// Loyalty Program Data - Fixed Amount Discounts
 const loyaltyProgram = {
     ranks: [
-        { name: "Rookie Fan", minPoints: 0, maxPoints: 499, discount: 5, benefits: ["Welcome discount: 5% off first purchase"] },
-        { name: "Team Supporter", minPoints: 500, maxPoints: 999, discount: 7, benefits: ["7% discount", "Birthday surprise"] },
-        { name: "Club Member", minPoints: 1000, maxPoints: 1999, discount: 10, benefits: ["10% discount", "Early access to new arrivals", "Free shipping on orders over ₹999"] },
-        { name: "Star Player", minPoints: 2000, maxPoints: 3499, discount: 15, benefits: ["15% discount", "Exclusive member-only products", "Double points on birthdays"] },
-        { name: "MVP", minPoints: 3500, maxPoints: 5499, discount: 20, benefits: ["20% discount", "Personalised recommendations", "Special gift on anniversary"] },
-        { name: "Hall of Famer", minPoints: 5500, maxPoints: 7999, discount: 25, benefits: ["25% discount", "Priority customer support", "Invitation to exclusive events"] },
-        { name: "Legend", minPoints: 8000, maxPoints: 99999, discount: 30, benefits: ["30% discount", "Custom jersey personalization", "Surprise gifts quarterly"] }
+        { 
+            name: "Rookie Fan", 
+            minPoints: 0, 
+            maxPoints: 49, 
+            fixedDiscount: 50, 
+            couponCode: "WELCOME50",
+            benefits: ["Welcome coupon: ₹50 off next order"],
+            jerseysRequired: 0
+        },
+        { 
+            name: "Team Supporter", 
+            minPoints: 50, 
+            maxPoints: 99, 
+            fixedDiscount: 100, 
+            couponCode: "SUPPORTER100",
+            benefits: ["₹100 off coupon for next order"],
+            jerseysRequired: 0
+        },
+        { 
+            name: "Club Member", 
+            minPoints: 100, 
+            maxPoints: 199, 
+            fixedDiscount: 150, 
+            couponCode: "MEMBER150",
+            benefits: ["₹150 off coupon for next order"],
+            jerseysRequired: 0
+        },
+        { 
+            name: "Star Player", 
+            minPoints: 200, 
+            maxPoints: 349, 
+            fixedDiscount: 200, 
+            permanentDiscount: 50,
+            couponCode: "STAR200",
+            benefits: ["Permanent ₹50 off every order", "₹200 off coupon for next order"],
+            jerseysRequired: 3
+        },
+        { 
+            name: "MVP", 
+            minPoints: 350, 
+            maxPoints: 549, 
+            permanentDiscount: 75,
+            benefits: ["Permanent ₹75 off every order"],
+            jerseysRequired: 3
+        },
+        { 
+            name: "Hall of Famer", 
+            minPoints: 550, 
+            maxPoints: 799, 
+            permanentDiscount: 100,
+            benefits: ["Permanent ₹100 off every order"],
+            jerseysRequired: 3
+        },
+        { 
+            name: "Legend", 
+            minPoints: 800, 
+            maxPoints: 99999, 
+            permanentDiscount: 150,
+            benefits: ["Permanent ₹150 off every order"],
+            jerseysRequired: 3
+        }
     ],
     pointsPerRupee: 0.02 // 1 point per ₹50 spent (1/50 = 0.02)
 };
 
-// User loyalty data
+// User loyalty data - Enhanced for fixed discounts
 let userLoyaltyData = {
     points: 0,
     rank: "Rookie Fan",
-    discount: 5,
+    permanentDiscount: 0,
+    jerseysPurchased: 0,
+    unlockedCoupons: [],
     benefits: []
 };
 
@@ -2199,6 +2204,10 @@ const subtotal = calculateTotal();
 const discountedTotal = applyLoyaltyDiscount(subtotal);
 const pointsEarned = calculateLoyaltyPoints(subtotal);
 
+// Count jerseys in this order for loyalty tracking
+const jerseysInThisOrder = cart.filter(item => 
+    item.section === 'jerseys' || item.section === 'kits').reduce((total, item) => total + item.quantity, 0);
+
 // Store order data TEMPORARILY (don't save to Firestore yet)
 window.pendingOrderData = {
     userId: auth.currentUser.uid,
@@ -2257,11 +2266,11 @@ window.confirmPaymentSuccess = async function() {
             await db.collection('orders').add(orderData);
             console.log("Order successfully saved to Firestore after payment!");
      
-            // Update user loyalty points
+// Update user loyalty points and jerseys count
 if (auth.currentUser) {
     userLoyaltyData.points += window.pendingOrderData.pointsEarned;
-    updateUserRank(userLoyaltyData.points);
-    saveLoyaltyDataToFirestore(auth.currentUser.uid, userLoyaltyData);
+    userLoyaltyData.jerseysPurchased += jerseysInThisOrder;
+    updateUserRank(userLoyaltyData.points, userLoyaltyData.jerseysPurchased);
 }
             
             // Clear cart
@@ -2325,9 +2334,9 @@ productCard.innerHTML = `
                             data-id="${product.id}" data-section="${sectionId}" data-index="${index}"></button>
                 `).join('')}
             </div>
-        ` : `
-            <img src="${product.image}" alt="${product.name}" class="product-image">
-        `}
+` : `
+    <img src="${product.images[0]}" alt="${product.name}" class="product-image">
+`}
     </div>
     <div class="product-info">
         <h3 class="product-title">${product.name}</h3>
@@ -2484,6 +2493,85 @@ cartItem.innerHTML = `
     cartTotal.textContent = total.toFixed(2);
     
     // Add event listeners to remove buttons
+
+            // Support System Functionality
+        const supportButton = document.getElementById('support-button');
+        const supportModal = document.getElementById('support-modal');
+        const supportOverlay = document.getElementById('support-overlay');
+        const closeSupport = document.getElementById('close-support');
+        const submitSupport = document.getElementById('submit-support');
+        const supportFeedback = document.getElementById('support-feedback');
+
+        // Open support modal
+        supportButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            supportModal.style.display = 'block';
+            supportOverlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+
+        // Close support modal
+        closeSupport.addEventListener('click', closeSupportModal);
+        supportOverlay.addEventListener('click', closeSupportModal);
+
+        function closeSupportModal() {
+            supportModal.style.display = 'none';
+            supportOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+            // Reset form
+            document.getElementById('support-subject').value = '';
+            document.getElementById('support-message').value = '';
+            supportFeedback.style.display = 'none';
+        }
+
+        // Submit support ticket
+        submitSupport.addEventListener('click', () => {
+            const subject = document.getElementById('support-subject').value;
+            const message = document.getElementById('support-message').value;
+
+            if (!subject) {
+                showSupportFeedback('Please select a subject', 'error');
+                return;
+            }
+
+            if (!message || message.length < 10) {
+                showSupportFeedback('Please provide a detailed message (min. 10 characters)', 'error');
+                return;
+            }
+
+            if (auth.currentUser) {
+                const user = auth.currentUser;
+                const ticketData = {
+                    userId: user.uid,
+                    userEmail: user.email,
+                    userName: document.getElementById('signup-name')?.value || 'Customer',
+                    subject: subject,
+                    message: message,
+                    status: 'new',
+                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                };
+
+                // Save to Firestore - you can manually check these in Firebase Console
+                db.collection('supportTickets').add(ticketData)
+                    .then(() => {
+                        showSupportFeedback('Thank you! Your support ticket has been submitted. We will contact you soon.', 'success');
+                        setTimeout(closeSupportModal, 3000);
+                    })
+                    .catch((error) => {
+                        console.error("Error submitting support ticket:", error);
+                        showSupportFeedback('Error submitting ticket. Please try again.', 'error');
+                    });
+            } else {
+                showSupportFeedback('Please log in to submit a support ticket', 'error');
+            }
+        });
+
+        function showSupportFeedback(message, type) {
+            supportFeedback.textContent = message;
+            supportFeedback.style.color = type === 'success' ? '#10b981' : '#e53e3e';
+            supportFeedback.style.display = 'block';
+        }
+
     const removeButtons = cartItems.querySelectorAll('.remove-item');
     removeButtons.forEach(button => {
         button.addEventListener('click', (e) => {
@@ -2537,16 +2625,53 @@ function calculateLoyaltyPoints(orderTotal) {
     return Math.floor(orderTotal * loyaltyProgram.pointsPerRupee);
 }
 
-function updateUserRank(points) {
+function updateUserRank(points, jerseysPurchased) {
+    let newRank = "Rookie Fan";
+    let newPermanentDiscount = 0;
+    let newBenefits = [];
+    let newCoupon = null;
+    
     for (const rank of loyaltyProgram.ranks) {
-        if (points >= rank.minPoints && points <= rank.maxPoints) {
-            userLoyaltyData.rank = rank.name;
-            userLoyaltyData.discount = rank.discount;
-            userLoyaltyData.benefits = rank.benefits;
+        // Check if user meets both points and jerseys requirements
+        if (points >= rank.minPoints && points <= rank.maxPoints && 
+            jerseysPurchased >= rank.jerseysRequired) {
+            newRank = rank.name;
+            
+            // Set permanent discount if available for this rank
+            if (rank.permanentDiscount !== undefined) {
+                newPermanentDiscount = rank.permanentDiscount;
+            }
+            
+            newBenefits = rank.benefits;
+            
+            // Check if user should get a coupon for this rank
+            if (rank.couponCode && 
+                !userLoyaltyData.unlockedCoupons.includes(rank.couponCode)) {
+                newCoupon = rank.couponCode;
+            }
+            
             break;
         }
     }
+    
+    // Update user data
+    userLoyaltyData.rank = newRank;
+    userLoyaltyData.permanentDiscount = newPermanentDiscount;
+    userLoyaltyData.benefits = newBenefits;
+    
+    // Add new coupon if earned
+    if (newCoupon) {
+        userLoyaltyData.unlockedCoupons.push(newCoupon);
+        // Here you would typically save this to Firestore and notify the user
+        console.log(`New coupon unlocked: ${newCoupon}`);
+    }
+    
     updateLoyaltyUI();
+    
+    // Save updated data to Firestore if user is logged in
+    if (auth.currentUser) {
+        saveLoyaltyDataToFirestore(auth.currentUser.uid, userLoyaltyData);
+    }
 }
 
 function updateLoyaltyUI() {
@@ -2563,7 +2688,13 @@ function updateLoyaltyUI() {
     
     if (rankElement) rankElement.textContent = userLoyaltyData.rank;
     if (pointsBalanceElement) pointsBalanceElement.textContent = userLoyaltyData.points;
-    if (discountElement) discountElement.textContent = `${userLoyaltyData.discount}%`;
+    if (discountElement) {
+    if (userLoyaltyData.permanentDiscount > 0) {
+        discountElement.textContent = `₹${userLoyaltyData.permanentDiscount} off every order`;
+    } else {
+        discountElement.textContent = "No permanent discount";
+    }
+}
     if (benefitsElement) {
         benefitsElement.innerHTML = userLoyaltyData.benefits.map(benefit => 
             `<li>${benefit}</li>`).join('');
@@ -2571,7 +2702,17 @@ function updateLoyaltyUI() {
 }
 
 function applyLoyaltyDiscount(subtotal) {
-    return subtotal * (1 - userLoyaltyData.discount / 100);
+    let discountedTotal = subtotal;
+    
+    // Apply permanent discount first
+    if (userLoyaltyData.permanentDiscount > 0) {
+        discountedTotal = subtotal - userLoyaltyData.permanentDiscount;
+    }
+    
+    // Ensure price doesn't go below 0
+    if (discountedTotal < 0) discountedTotal = 0;
+    
+    return discountedTotal;
 }
 
 function showLoyaltyProfile() {
@@ -2611,7 +2752,9 @@ function showLoyaltyProfile() {
                     </div>
                     <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
                         <span>Your Discount:</span>
-                        <span id="current-discount" style="color: var(--accent-secondary); font-weight: bold;">${userLoyaltyData.discount}%</span>
+                        <span id="current-discount" style="color: var(--accent-secondary); font-weight: bold;">
+    ${userLoyaltyData.permanentDiscount > 0 ? '₹' + userLoyaltyData.permanentDiscount + ' off every order' : 'No permanent discount'}
+</span>
                     </div>
                 </div>
                 <div>
@@ -2688,7 +2831,12 @@ function showAllRewards() {
                         <h4 style="color: ${isCurrentRank ? 'var(--accent)' : 'var(--text-primary)'}; margin: 0;">
                             ${rank.name} ${isCurrentRank ? '(Current)' : ''}
                         </h4>
-                        <span style="color: var(--accent-secondary); font-weight: bold;">${rank.discount}% discount</span>
+                        <span style="color: var(--accent-secondary); font-weight: bold;">
+    ${rank.fixedDiscount ? '₹' + rank.fixedDiscount + ' off' : ''}
+    ${rank.fixedDiscount && rank.permanentDiscount ? ' + ' : ''}
+    ${rank.permanentDiscount ? '₹' + rank.permanentDiscount + ' off every order' : ''}
+    ${!rank.fixedDiscount && !rank.permanentDiscount ? 'No discount' : ''}
+</span>
                     </div>
                     <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">
                         ${rank.minPoints} - ${rank.maxPoints === 99999 ? '∞' : rank.maxPoints} points
@@ -2750,6 +2898,9 @@ function saveLoyaltyDataToFirestore(userId, loyaltyData) {
     userLoyaltyRef.set({
         points: loyaltyData.points,
         rank: loyaltyData.rank,
+        permanentDiscount: loyaltyData.permanentDiscount,
+        jerseysPurchased: loyaltyData.jerseysPurchased,
+        unlockedCoupons: loyaltyData.unlockedCoupons,
         lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
     })
     .then(() => {
@@ -2769,13 +2920,19 @@ function loadUserLoyaltyData(userId) {
             const loyaltyData = doc.data();
             userLoyaltyData.points = loyaltyData.points || 0;
             userLoyaltyData.rank = loyaltyData.rank || "Rookie Fan";
-            updateUserRank(userLoyaltyData.points);
+            userLoyaltyData.permanentDiscount = loyaltyData.permanentDiscount || 0;
+            userLoyaltyData.jerseysPurchased = loyaltyData.jerseysPurchased || 0;
+            userLoyaltyData.unlockedCoupons = loyaltyData.unlockedCoupons || [];
+            updateUserRank(userLoyaltyData.points, userLoyaltyData.jerseysPurchased);
             updateLoyaltyUI();
         } else {
             console.log("No existing loyalty data found. Starting fresh.");
             userLoyaltyData.points = 0;
             userLoyaltyData.rank = "Rookie Fan";
-            updateUserRank(0);
+            userLoyaltyData.permanentDiscount = 0;
+            userLoyaltyData.jerseysPurchased = 0;
+            userLoyaltyData.unlockedCoupons = [];
+            updateUserRank(0, 0);
             updateLoyaltyUI();
         }
     }).catch((error) => {
