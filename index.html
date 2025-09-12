@@ -970,6 +970,57 @@
     opacity: 0.5;
     cursor: not-allowed;
 }
+
+        /* Loyalty Program Styles */
+        #profile-button {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #user-points {
+            font-size: 0.8rem;
+            background: var(--accent);
+            color: var(--dark-bg);
+            padding: 2px 6px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+
+        #loyalty-profile-modal h2,
+        #rewards-modal h2 {
+            color: var(--accent);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        #loyalty-profile-modal h3,
+        #rewards-modal h3 {
+            color: var(--accent-secondary);
+            margin-bottom: 1rem;
+        }
+
+        #close-profile,
+        #close-rewards {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        #current-benefits li {
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+        }
+
+        #view-all-rewards {
+            padding: 0.8rem 1.5rem;
+        }
+        
         
         /* Responsive design */
         @media (max-width: 900px) {
@@ -1163,18 +1214,25 @@
                 <i class="fa-solid fa-futbol"></i>
                 <span>USAM 90'</span>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#jerseys">Jerseys</a></li>
-                    <li><a href="#boots">Boots</a></li>
-                    <li><a href="#kits">Kits</a></li>
-                    <li><a href="#cart" class="cart-icon" id="cart-button">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-count">0</span>
-                    </a></li>
-                    <li><a href="#" id="logout-btn">Logout</a></li>
-                </ul>
-            </nav>
+<nav>
+    <ul>
+        <li><a href="#jerseys">Jerseys</a></li>
+        <li><a href="#boots">Boots</a></li>
+        <li><a href="#kits">Kits</a></li>
+        <li><a href="#rewards" id="rewards-button">Rewards</a></li>
+        <li><a href="#cart" class="cart-icon" id="cart-button">
+            <i class="fas fa-shopping-cart"></i>
+            <span class="cart-count">0</span>
+        </a></li>
+        <li>
+            <a href="#" id="profile-button">
+                <i class="fas fa-user"></i>
+                <span id="user-points">0 pts</span>
+            </a>
+        </li>
+        <li><a href="#" id="logout-btn">Logout</a></li>
+    </ul>
+</nav>
         </header>
 
         <!-- Search Bar -->
@@ -1655,7 +1713,20 @@ function generateOrderId() {
                   sizes: { S: 1, M: 1, L: 4, XL: 3, XXL: 0  } 
                 },
 
-            ],
+                { 
+                  id: 9, 
+                  name: "ARGENTINA GOAT EDITION KIT 🖤👑", 
+                  price: 699,
+                  images: [
+     "https://i.ibb.co/qY1s12F8/Whats-App-Image-2025-09-08-at-10-08-53-54996a0e.jpg",
+     "https://i.ibb.co/qM6FWhdm/Whats-App-Image-2025-09-08-at-10-08-54-AM.jpg"
+  ], 
+                  sizes: { S: 1, M: 1, L: 1, XL: 1, XXL: 1  } 
+                },
+
+
+
+                            ],
             boots: [
                 
             ],
@@ -1864,8 +1935,30 @@ function formatIndianCurrency(amount) {
         return `₹${lastThree}.${decimal}`;
     }
 }
-        // Cart functionality
-        let cart = [];
+        // Loyalty Program Data
+const loyaltyProgram = {
+    ranks: [
+        { name: "Rookie Fan", minPoints: 0, maxPoints: 499, discount: 5, benefits: ["Welcome discount: 5% off first purchase"] },
+        { name: "Team Supporter", minPoints: 500, maxPoints: 999, discount: 7, benefits: ["7% discount", "Birthday surprise"] },
+        { name: "Club Member", minPoints: 1000, maxPoints: 1999, discount: 10, benefits: ["10% discount", "Early access to new arrivals", "Free shipping on orders over ₹999"] },
+        { name: "Star Player", minPoints: 2000, maxPoints: 3499, discount: 15, benefits: ["15% discount", "Exclusive member-only products", "Double points on birthdays"] },
+        { name: "MVP", minPoints: 3500, maxPoints: 5499, discount: 20, benefits: ["20% discount", "Personalised recommendations", "Special gift on anniversary"] },
+        { name: "Hall of Famer", minPoints: 5500, maxPoints: 7999, discount: 25, benefits: ["25% discount", "Priority customer support", "Invitation to exclusive events"] },
+        { name: "Legend", minPoints: 8000, maxPoints: 99999, discount: 30, benefits: ["30% discount", "Custom jersey personalization", "Surprise gifts quarterly"] }
+    ],
+    pointsPerRupee: 0.02 // 1 point per ₹50 spent (1/50 = 0.02)
+};
+
+// User loyalty data
+let userLoyaltyData = {
+    points: 0,
+    rank: "Rookie Fan",
+    discount: 5,
+    benefits: []
+};
+
+// Cart functionality
+let cart = [];
         const cartCount = document.querySelector('.cart-count');
         const cartButton = document.getElementById('cart-button');
         const closeCart = document.getElementById('close-cart');
@@ -2101,17 +2194,26 @@ checkoutBtn.addEventListener('click', async () => {
         const addresses = doc.data().addresses;
         const selectedAddress = addresses[selectedAddressId];
         
-        // Store order data TEMPORARILY (don't save to Firestore yet)
-        window.pendingOrderData = {
-            userId: auth.currentUser.uid,
-            userEmail: auth.currentUser.email,
-            userName: document.getElementById('signup-name').value || 'Customer',
-            items: [...cart], // Copy the cart array
-            address: selectedAddress,
-            total: calculateTotal(),
-            status: "pending_payment",
-            orderId: generateOrderId()
-        };
+// Calculate order total with loyalty discount
+const subtotal = calculateTotal();
+const discountedTotal = applyLoyaltyDiscount(subtotal);
+const pointsEarned = calculateLoyaltyPoints(subtotal);
+
+// Store order data TEMPORARILY (don't save to Firestore yet)
+window.pendingOrderData = {
+    userId: auth.currentUser.uid,
+    userEmail: auth.currentUser.email,
+    userName: document.getElementById('signup-name').value || 'Customer',
+    items: [...cart], // Copy the cart array
+    address: selectedAddress,
+    subtotal: subtotal,
+    discount: userLoyaltyData.discount,
+    discountAmount: subtotal - discountedTotal,
+    total: discountedTotal,
+    pointsEarned: pointsEarned,
+    status: "pending_payment",
+    orderId: generateOrderId()
+};
         
         // Open GPay payment
         const upiId = 'utsab.agarpara@okhdfcbank';
@@ -2154,6 +2256,13 @@ window.confirmPaymentSuccess = async function() {
             // Save order to Firestore
             await db.collection('orders').add(orderData);
             console.log("Order successfully saved to Firestore after payment!");
+     
+            // Update user loyalty points
+if (auth.currentUser) {
+    userLoyaltyData.points += window.pendingOrderData.pointsEarned;
+    updateUserRank(userLoyaltyData.points);
+    saveLoyaltyDataToFirestore(auth.currentUser.uid, userLoyaltyData);
+}
             
             // Clear cart
             cart = [];
@@ -2175,12 +2284,13 @@ window.confirmPaymentSuccess = async function() {
     }
 };
 
-        // Initialize the store
-        function initStore() {
-            renderProducts('jerseys', products.jerseys);
-            renderProducts('boots', products.boots);
-            renderProducts('kits', products.kits);
-        }
+// Initialize the store
+function initStore() {
+    renderProducts('jerseys', products.jerseys);
+    renderProducts('boots', products.boots);
+    renderProducts('kits', products.kits);
+    initLoyaltyProgram();
+}
 
         // Render products to the page
         function renderProducts(sectionId, productsArray) {
@@ -2352,17 +2462,20 @@ function updateCart() {
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
         
-        cartItem.innerHTML = `
-            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h4 class="cart-item-title">${item.name}</h4>
-                <p class="cart-item-price">${formatIndianCurrency(item.price)} x ${item.quantity}</p>
-                ${item.size ? `<p>Size: ${item.size}</p>` : ''}
-            </div>
-            <button class="remove-item" data-id="${item.id}" data-size="${item.size}">
-                <i class="fas fa-trash"></i>
-            </button>
-        `;
+// Use first image from images array if available, otherwise use single image
+const itemImage = item.images && item.images.length > 0 ? item.images[0] : item.image;
+
+cartItem.innerHTML = `
+    <img src="${itemImage}" alt="${item.name}" class="cart-item-image">
+    <div class="cart-item-details">
+        <h4 class="cart-item-title">${item.name}</h4>
+        <p class="cart-item-price">${formatIndianCurrency(item.price)} x ${item.quantity}</p>
+        ${item.size ? `<p>Size: ${item.size}</p>` : ''}
+    </div>
+    <button class="remove-item" data-id="${item.id}" data-size="${item.size}">
+        <i class="fas fa-trash"></i>
+    </button>
+`;
         cartItems.appendChild(cartItem);
         
         total += item.price * item.quantity;
@@ -2419,9 +2532,257 @@ function removeFromCart(productId, size) {
     }
 }
         
+// Loyalty program functions
+function calculateLoyaltyPoints(orderTotal) {
+    return Math.floor(orderTotal * loyaltyProgram.pointsPerRupee);
+}
+
+function updateUserRank(points) {
+    for (const rank of loyaltyProgram.ranks) {
+        if (points >= rank.minPoints && points <= rank.maxPoints) {
+            userLoyaltyData.rank = rank.name;
+            userLoyaltyData.discount = rank.discount;
+            userLoyaltyData.benefits = rank.benefits;
+            break;
+        }
+    }
+    updateLoyaltyUI();
+}
+
+function updateLoyaltyUI() {
+    const pointsElement = document.getElementById('user-points');
+    if (pointsElement) {
+        pointsElement.textContent = `${userLoyaltyData.points} pts`;
+    }
+    
+    // Update the profile modal if it's open
+    const rankElement = document.getElementById('current-rank');
+    const pointsBalanceElement = document.getElementById('points-balance');
+    const discountElement = document.getElementById('current-discount');
+    const benefitsElement = document.getElementById('current-benefits');
+    
+    if (rankElement) rankElement.textContent = userLoyaltyData.rank;
+    if (pointsBalanceElement) pointsBalanceElement.textContent = userLoyaltyData.points;
+    if (discountElement) discountElement.textContent = `${userLoyaltyData.discount}%`;
+    if (benefitsElement) {
+        benefitsElement.innerHTML = userLoyaltyData.benefits.map(benefit => 
+            `<li>${benefit}</li>`).join('');
+    }
+}
+
+function applyLoyaltyDiscount(subtotal) {
+    return subtotal * (1 - userLoyaltyData.discount / 100);
+}
+
+function showLoyaltyProfile() {
+    // Create or show profile modal
+    let profileModal = document.getElementById('loyalty-profile-modal');
+    
+    if (!profileModal) {
+        profileModal = document.createElement('div');
+        profileModal.id = 'loyalty-profile-modal';
+        profileModal.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--darker-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            display: none;
+        `;
+        
+        profileModal.innerHTML = `
+            <div style="position: relative;">
+                <button id="close-profile" style="position: absolute; top: -10px; right: -10px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center;">Your Loyalty Profile</h2>
+                <div style="margin-bottom: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span>Current Rank:</span>
+                        <span id="current-rank" style="color: var(--accent-secondary); font-weight: bold;">${userLoyaltyData.rank}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span>Points Balance:</span>
+                        <span id="points-balance" style="color: var(--accent-secondary); font-weight: bold;">${userLoyaltyData.points}</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                        <span>Your Discount:</span>
+                        <span id="current-discount" style="color: var(--accent-secondary); font-weight: bold;">${userLoyaltyData.discount}%</span>
+                    </div>
+                </div>
+                <div>
+                    <h3 style="color: var(--accent); margin-bottom: 1rem;">Current Benefits</h3>
+                    <ul id="current-benefits" style="padding-left: 1.5rem;">
+                        ${userLoyaltyData.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                    </ul>
+                </div>
+                <div style="margin-top: 2rem; text-align: center;">
+                    <button id="view-all-rewards" class="btn" style="padding: 0.8rem 1.5rem;">View All Rewards</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(profileModal);
+        
+        // Add event listeners
+        document.getElementById('close-profile').addEventListener('click', () => {
+            profileModal.style.display = 'none';
+        });
+        
+        document.getElementById('view-all-rewards').addEventListener('click', () => {
+            profileModal.style.display = 'none';
+            showAllRewards();
+        });
+    }
+    
+    profileModal.style.display = 'block';
+}
+
+function showAllRewards() {
+    // Create or show rewards modal
+    let rewardsModal = document.getElementById('rewards-modal');
+    
+    if (!rewardsModal) {
+        rewardsModal = document.createElement('div');
+        rewardsModal.id = 'rewards-modal';
+        rewardsModal.style.cssText = `
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--darker-bg);
+            padding: 2rem;
+            border-radius: 10px;
+            z-index: 1000;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.5);
+            display: none;
+        `;
+        
+        let rewardsHTML = `
+            <div style="position: relative;">
+                <button id="close-rewards" style="position: absolute; top: -10px; right: -10px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center;">USAM 90' Loyalty Program</h2>
+                <div style="margin-bottom: 2rem;">
+                    <h3 style="color: var(--accent-secondary); margin-bottom: 1rem;">How it works</h3>
+                    <p>Earn <strong>1 point for every ₹50</strong> you spend. Climb through the ranks to unlock bigger discounts and exclusive benefits!</p>
+                </div>
+                <div>
+                    <h3 style="color: var(--accent-secondary); margin-bottom: 1rem;">Reward Tiers</h3>
+        `;
+        
+        loyaltyProgram.ranks.forEach(rank => {
+            const isCurrentRank = userLoyaltyData.rank === rank.name;
+            rewardsHTML += `
+                <div style="border: 1px solid ${isCurrentRank ? 'var(--accent)' : '#334155'}; 
+                            border-radius: 8px; padding: 1rem; margin-bottom: 1rem;
+                            background: ${isCurrentRank ? 'rgba(126, 34, 206, 0.1)' : 'transparent'};">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                        <h4 style="color: ${isCurrentRank ? 'var(--accent)' : 'var(--text-primary)'}; margin: 0;">
+                            ${rank.name} ${isCurrentRank ? '(Current)' : ''}
+                        </h4>
+                        <span style="color: var(--accent-secondary); font-weight: bold;">${rank.discount}% discount</span>
+                    </div>
+                    <div style="color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 0.5rem;">
+                        ${rank.minPoints} - ${rank.maxPoints === 99999 ? '∞' : rank.maxPoints} points
+                    </div>
+                    <ul style="padding-left: 1.5rem; margin: 0; color: var(--text-secondary);">
+                        ${rank.benefits.map(benefit => `<li>${benefit}</li>`).join('')}
+                    </ul>
+                </div>
+            `;
+        });
+        
+        rewardsHTML += `
+                </div>
+            </div>
+        `;
+        
+        rewardsModal.innerHTML = rewardsHTML;
+        document.body.appendChild(rewardsModal);
+        
+        // Add event listener
+        document.getElementById('close-rewards').addEventListener('click', () => {
+            rewardsModal.style.display = 'none';
+        });
+    }
+    
+    rewardsModal.style.display = 'block';
+}
+
+// Initialize loyalty program
+function initLoyaltyProgram() {
+    // Load user loyalty data from Firestore if logged in
+    if (auth.currentUser) {
+        // Move the loadUserLoyaltyData function definition BEFORE this call
+        // or use a function expression that gets hoisted
+        if (typeof loadUserLoyaltyData === 'function') {
+            loadUserLoyaltyData(auth.currentUser.uid);
+        }
+    }
+    
+    // Add event listeners
+    document.getElementById('profile-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        showLoyaltyProfile();
+    });
+    
+    document.getElementById('rewards-button').addEventListener('click', (e) => {
+        e.preventDefault();
+        showAllRewards();
+    });
+}
 
         // Save cart to Firestore
         function saveCartToFirestore(userId, cartItems) {
+
+// Save loyalty data to Firestore
+function saveLoyaltyDataToFirestore(userId, loyaltyData) {
+    const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
+    
+    userLoyaltyRef.set({
+        points: loyaltyData.points,
+        rank: loyaltyData.rank,
+        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log("Loyalty data successfully saved to Firestore!");
+    })
+    .catch((error) => {
+        console.error("Error saving loyalty data:", error);
+    });
+}
+
+// Load user loyalty data from Firestore
+function loadUserLoyaltyData(userId) {
+    const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
+    
+    userLoyaltyRef.get().then((doc) => {
+        if (doc.exists) {
+            const loyaltyData = doc.data();
+            userLoyaltyData.points = loyaltyData.points || 0;
+            userLoyaltyData.rank = loyaltyData.rank || "Rookie Fan";
+            updateUserRank(userLoyaltyData.points);
+            updateLoyaltyUI();
+        } else {
+            console.log("No existing loyalty data found. Starting fresh.");
+            userLoyaltyData.points = 0;
+            userLoyaltyData.rank = "Rookie Fan";
+            updateUserRank(0);
+            updateLoyaltyUI();
+        }
+    }).catch((error) => {
+        console.error("Error loading loyalty data:", error);
+    });
+}
+
             const userCartRef = db.collection('carts').doc(userId);
             
             userCartRef.set({
