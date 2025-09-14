@@ -1326,6 +1326,20 @@
     </button>
 </div>
 
+<!-- Coupon Section -->
+<div id="coupon-section" style="margin: 20px 0; padding: 15px; background: var(--card-bg); border-radius: 8px;">
+    <h3 style="margin: 0 0 15px; color: var(--accent);">Apply Coupon</h3>
+    <div id="coupon-display" style="display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 15px;">
+        <!-- Coupon buttons will be added here dynamically -->
+    </div>
+    <div id="applied-coupon" style="display: none; padding: 10px; background: rgba(16, 185, 129, 0.1); border-radius: 5px; border: 1px solid #10b981;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span id="applied-coupon-text" style="color: #10b981; font-weight: bold;"></span>
+            <button id="remove-coupon" style="background: none; border: none; color: #10b981; cursor: pointer;">✕</button>
+        </div>
+    </div>
+</div>
+
 <button class="checkout-btn" id="checkout-btn" disabled>Proceed to Checkout</button>
         <!-- ADD GPay BUTTON HERE -->
         <button id="gpay-pay-btn" style="width: 100%; padding: 1rem; background: #4285f4; color: white; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; margin-top: 1rem; display: flex; align-items: center; justify-content: center; gap: 10px;">
@@ -1477,6 +1491,26 @@ console.log("checkout-btn:", document.getElementById('checkout-btn'));
                     const user = userCredential.user;
                     console.log("User created:", user);
                     
+// Add welcome coupon for new users
+if (auth.currentUser) {
+    const userLoyaltyRef = db.collection('userLoyalty').doc(auth.currentUser.uid);
+    userLoyaltyRef.set({
+        points: 0,
+        rank: "Rookie Fan",
+        permanentDiscount: 0,
+        jerseysPurchased: 0,
+        unlockedCoupons: ["WELCOME50"], // Add welcome coupon
+        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log("Welcome coupon added for new user");
+        userLoyaltyData.unlockedCoupons = ["WELCOME50"];
+    })
+    .catch((error) => {
+        console.error("Error adding welcome coupon:", error);
+    });
+}
+
                     // Hide forms and show success message
                     loginForm.style.display = 'none';
                     signupForm.style.display = 'none';
@@ -1884,6 +1918,78 @@ function formatIndianCurrency(amount) {
         return `₹${lastThree}.${decimal}`;
     }
 }
+
+// Coupon Catalog - Master list of all coupons
+const couponCatalog = {
+    "WELCOME50": {
+        displayName: "Welcome Discount",
+        type: "fixed",
+        value: 50,
+        minPurchaseAmount: 0,
+        minJerseysRequired: 0,
+        expiryDate: null, // No expiry
+        isActive: true,
+        requiredRank: "Rookie Fan"
+    },
+    "SUPPORTER100": {
+        displayName: "Supporter Reward",
+        type: "fixed",
+        value: 100,
+        minPurchaseAmount: 1000,
+        minJerseysRequired: 0,
+        expiryDate: null,
+        isActive: true,
+        requiredRank: "Team Supporter"
+    },
+    "MEMBER150": {
+        displayName: "Member Discount",
+        type: "fixed",
+        value: 150,
+        minPurchaseAmount: 1500,
+        minJerseysRequired: 0,
+        expiryDate: null,
+        isActive: true,
+        requiredRank: "Club Member"
+    },
+    "STAR200": {
+        displayName: "Star Player Reward",
+        type: "fixed",
+        value: 200,
+        minPurchaseAmount: 2000,
+        minJerseysRequired: 1,
+        expiryDate: null,
+        isActive: true,
+        requiredRank: "Star Player"
+    }
+};
+
+// Show notification when a new coupon is unlocked
+function showCouponNotification(couponCode) {
+    const coupon = couponCatalog[couponCode];
+    if (!coupon) return;
+    
+    // Create notification element
+    const notification = document.createElement('div');
+    notification.style.cssText = 'position: fixed; top: 20px; right: 20px; padding: 15px; background: var(--darker-bg); border-left: 4px solid #10b981; border-radius: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); z-index: 10000; max-width: 300px;';
+    notification.innerHTML = `
+        <h4 style="margin: 0 0 8px; color: #10b981;">New Coupon Unlocked!</h4>
+        <p style="margin: 0; color: var(--text-primary);">You've earned: <strong>${coupon.displayName}</strong></p>
+        <p style="margin: 5px 0 0; font-size: 0.9em; color: var(--text-secondary);">₹${coupon.value} off your next purchase!</p>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    // Auto remove after 5 seconds
+    setTimeout(() => {
+        notification.style.opacity = '0';
+        notification.style.transition = 'opacity 0.5s';
+        setTimeout(() => notification.remove(), 500);
+    }, 5000);
+}
+
+// Current applied coupon
+let appliedCoupon = null;
+
 // Loyalty Program Data - Fixed Amount Discounts
 const loyaltyProgram = {
     ranks: [
@@ -2212,17 +2318,19 @@ const jerseysInThisOrder = cart.filter(item =>
 window.pendingOrderData = {
     userId: auth.currentUser.uid,
     userEmail: auth.currentUser.email,
-    userName: document.getElementById('signup-name').value || 'Customer',
-    items: [...cart], // Copy the cart array
+    userName: document.getElementById('signup-name')?.value || 'Customer',
+    items: [...cart],
     address: selectedAddress,
     subtotal: subtotal,
     discount: userLoyaltyData.discount,
     discountAmount: subtotal - discountedTotal,
-    total: discountedTotal,
+    coupon: appliedCoupon, 
+    couponDiscount: appliedCoupon ? calculateCouponDiscount(subtotal, appliedCoupon) : 0, 
+    total: discountedTotal - (appliedCoupon ? calculateCouponDiscount(subtotal, appliedCoupon) : 0),
     pointsEarned: pointsEarned,
     status: "pending_payment",
     orderId: generateOrderId()
-};
+};;
         
         // Open GPay payment
         const upiId = 'utsab.agarpara@okhdfcbank';
@@ -2299,6 +2407,8 @@ function initStore() {
     renderProducts('boots', products.boots);
     renderProducts('kits', products.kits);
     initLoyaltyProgram();
+// Initialize coupon display
+    updateCouponDisplay(0);
 }
 
         // Render products to the page
@@ -2492,6 +2602,26 @@ cartItem.innerHTML = `
     
     cartTotal.textContent = total.toFixed(2);
     
+    // Apply coupon discount if applicable
+    if (appliedCoupon) {
+        const discountAmount = calculateCouponDiscount(total, appliedCoupon);
+        const discountedTotal = total - discountAmount;
+        
+        // Add discount line to cart display
+        const discountElement = document.createElement('div');
+        discountElement.className = 'cart-discount';
+        discountElement.style.cssText = 'color: #10b981; font-weight: bold; margin-top: 10px; padding-top: 10px; border-top: 1px solid #334155;';
+        discountElement.innerHTML = `Coupon Discount: -₹${discountAmount.toFixed(2)}`;
+        cartItems.appendChild(discountElement);
+        
+        // Update total with discount
+        cartTotal.textContent = discountedTotal.toFixed(2);
+        total = discountedTotal;
+    }
+    
+    // Update coupon display
+    updateCouponDisplay(total);
+
     // Add event listeners to remove buttons
 
             // Support System Functionality
@@ -2582,7 +2712,100 @@ cartItem.innerHTML = `
     });
 }
 
+// Calculate coupon discount
+function calculateCouponDiscount(subtotal, couponCode) {
+    const coupon = couponCatalog[couponCode];
+    if (!coupon) return 0;
+    
+    if (coupon.type === "fixed") {
+        return coupon.value;
+    } else if (coupon.type === "percentage") {
+        return (subtotal * coupon.value) / 100;
+    }
+    return 0;
+}
 
+// Update coupon display based on user's unlocked coupons and cart contents
+function updateCouponDisplay(cartTotal) {
+    const couponDisplay = document.getElementById('coupon-display');
+    const appliedCouponSection = document.getElementById('applied-coupon');
+    const appliedCouponText = document.getElementById('applied-coupon-text');
+    
+    couponDisplay.innerHTML = '';
+    
+    if (!auth.currentUser || !userLoyaltyData.unlockedCoupons || userLoyaltyData.unlockedCoupons.length === 0) {
+        couponDisplay.innerHTML = '<p style="color: var(--text-secondary);">No coupons available. Earn rewards by making purchases!</p>';
+        return;
+    }
+    
+    // Count jerseys in cart for coupon eligibility
+    const jerseysInCart = cart.filter(item => 
+        item.section === 'jerseys' || item.section === 'kits').reduce((total, item) => total + item.quantity, 0);
+    
+    userLoyaltyData.unlockedCoupons.forEach(couponCode => {
+        const coupon = couponCatalog[couponCode];
+        if (!coupon || !coupon.isActive) return;
+        
+        const button = document.createElement('button');
+        button.className = 'coupon-btn';
+        button.setAttribute('data-coupon', couponCode);
+        
+        // Check if coupon is applicable
+        const isApplicable = cartTotal >= coupon.minPurchaseAmount && jerseysInCart >= coupon.minJerseysRequired;
+        const isApplied = appliedCoupon === couponCode;
+        
+        if (isApplied) {
+            button.style.cssText = 'padding: 8px 12px; border: 2px solid #10b981; border-radius: 20px; background: rgba(16, 185, 129, 0.1); color: #10b981; font-weight: bold; cursor: pointer;';
+            button.textContent = `${coupon.displayName} - APPLIED`;
+        } else if (isApplicable) {
+            button.style.cssText = 'padding: 8px 12px; border: 1px solid #10b981; border-radius: 20px; background: transparent; color: #10b981; cursor: pointer;';
+            button.textContent = `${coupon.displayName} - ₹${coupon.value} OFF`;
+        } else {
+            button.style.cssText = 'padding: 8px 12px; border: 1px solid #6b7280; border-radius: 20px; background: transparent; color: #6b7280; cursor: not-allowed; opacity: 0.7;';
+            
+            let requirementText = '';
+            if (cartTotal < coupon.minPurchaseAmount) {
+                requirementText = `Add ₹${(coupon.minPurchaseAmount - cartTotal).toFixed(2)} more`;
+            }
+            if (jerseysInCart < coupon.minJerseysRequired) {
+                if (requirementText) requirementText += ' & ';
+                requirementText += `Add ${coupon.minJerseysRequired - jerseysInCart} more jersey(s)`;
+            }
+            
+            button.textContent = `${coupon.displayName} - ${requirementText}`;
+            button.disabled = true;
+        }
+        
+        if (isApplicable && !isApplied) {
+            button.addEventListener('click', () => applyCoupon(couponCode));
+        }
+        
+        couponDisplay.appendChild(button);
+    });
+    
+    // Show applied coupon section if a coupon is applied
+    if (appliedCoupon) {
+        appliedCouponSection.style.display = 'block';
+        appliedCouponText.textContent = `${couponCatalog[appliedCoupon].displayName} - ₹${couponCatalog[appliedCoupon].value} OFF`;
+    } else {
+        appliedCouponSection.style.display = 'none';
+    }
+}
+
+// Apply a coupon to the current order
+function applyCoupon(couponCode) {
+    appliedCoupon = couponCode;
+    updateCart();
+    
+    // Add event listener to remove coupon button
+    document.getElementById('remove-coupon').addEventListener('click', removeCoupon);
+}
+
+// Remove applied coupon
+function removeCoupon() {
+    appliedCoupon = null;
+    updateCart();
+}
 
  // Remove item from cart
 function removeFromCart(productId, size) {
@@ -2659,9 +2882,11 @@ function updateUserRank(points, jerseysPurchased) {
     userLoyaltyData.permanentDiscount = newPermanentDiscount;
     userLoyaltyData.benefits = newBenefits;
     
-    // Add new coupon if earned
-    if (newCoupon) {
-        userLoyaltyData.unlockedCoupons.push(newCoupon);
+// Add new coupon if earned
+if (newCoupon && !userLoyaltyData.unlockedCoupons.includes(newCoupon)) {
+    userLoyaltyData.unlockedCoupons.push(newCoupon);
+    // Show notification to user about new coupon
+    showCouponNotification(newCoupon);
         // Here you would typically save this to Firestore and notify the user
         console.log(`New coupon unlocked: ${newCoupon}`);
     }
