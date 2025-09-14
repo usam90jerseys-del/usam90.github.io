@@ -1221,6 +1221,7 @@
         <li><a href="#kits">Kits</a></li>
         <li><a href="#rewards" id="rewards-button">Rewards</a></li>
         <li><a href="#" id="support-button">Support</a></li>
+        <li><a href="#" id="leaderboard-button">Leaderboard</a></li>
         <li><a href="#cart" class="cart-icon" id="cart-button">
             <i class="fas fa-shopping-cart"></i>
             <span class="cart-count">0</span>
@@ -1377,7 +1378,22 @@
             </div>
         </div>
         <div id="support-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 999;"></div>
+        <!-- Leaderboard Modal -->
+        <div id="leaderboard-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--darker-bg); padding: 2rem; border-radius: 10px; z-index: 1000; width: 90%; max-width: 600px; max-height: 80vh; overflow-y: auto; box-shadow: 0 5px 25px rgba(0,0,0,0.5);">
+            <div style="position: relative;">
+                <button id="close-leaderboard" style="position: absolute; top: -10px; right: -10px; background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer;">×</button>
+                <h2 style="color: var(--accent); margin-bottom: 1.5rem; text-align: center;">USAM 90' Leaderboard</h2>
+                <div id="leaderboard-content">
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-trophy" style="font-size: 3rem; margin-bottom: 1rem; color: #FFD700;"></i>
+                        <p>Loading leaderboard...</p>
+                    </div>
+                </div>
+            </div>
         </div>
+        <div id="leaderboard-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); z-index: 999;">
+</div>        
+</div>
     </div>
         </div>
     </div>
@@ -1414,6 +1430,92 @@
             .catch((error) => {
                 console.error("Error setting auth persistence:", error);
             });
+
+// LOYALTY PROGRAM FUNCTIONS - ADD THESE RIGHT AFTER FIREBASE INIT
+// Save loyalty data to Firestore
+function saveLoyaltyDataToFirestore(userId, loyaltyData) {
+    const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
+    
+    userLoyaltyRef.set({
+        points: loyaltyData.points,
+        rank: loyaltyData.rank,
+        permanentDiscount: loyaltyData.permanentDiscount,
+        jerseysPurchased: loyaltyData.jerseysPurchased,
+        unlockedCoupons: loyaltyData.unlockedCoupons,
+        userName: loyaltyData.userName || 'Customer',
+        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+        console.log("Loyalty data successfully saved to Firestore!");
+    })
+    .catch((error) => {
+        console.error("Error saving loyalty data:", error);
+    });
+}
+
+// Load user loyalty data from Firestore
+function loadUserLoyaltyData(userId) {
+    const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
+    
+    userLoyaltyRef.get().then((doc) => {
+        if (doc.exists) {
+            const loyaltyData = doc.data();
+            userLoyaltyData.points = loyaltyData.points || 0;
+            userLoyaltyData.rank = loyaltyData.rank || "Rookie Fan";
+            userLoyaltyData.permanentDiscount = loyaltyData.permanentDiscount || 0;
+            userLoyaltyData.jerseysPurchased = loyaltyData.jerseysPurchased || 0;
+            userLoyaltyData.unlockedCoupons = loyaltyData.unlockedCoupons || [];
+            userLoyaltyData.userName = loyaltyData.userName || 'Customer';
+            
+            // Update the UI with the loaded data
+            updateUserRank(userLoyaltyData.points, userLoyaltyData.jerseysPurchased);
+            updateLoyaltyUI();
+            
+            console.log("Loyalty data loaded:", userLoyaltyData);
+        } else {
+            console.log("No existing loyalty data found. Starting fresh.");
+            // Initialize with default values
+            userLoyaltyData.points = 0;
+            userLoyaltyData.rank = "Rookie Fan";
+            userLoyaltyData.permanentDiscount = 0;
+            userLoyaltyData.jerseysPurchased = 0;
+            userLoyaltyData.unlockedCoupons = [];
+            userLoyaltyData.userName = 'Customer';
+            
+            // Save the initial data to Firestore
+            saveLoyaltyDataToFirestore(userId, userLoyaltyData);
+            updateUserRank(0, 0);
+            updateLoyaltyUI();
+        }
+    }).catch((error) => {
+        console.error("Error loading loyalty data:", error);
+    });
+}
+
+// Add real-time listener for loyalty data updates
+function setupLoyaltyDataListener(userId) {
+    const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
+    
+    userLoyaltyRef.onSnapshot((doc) => {
+        if (doc.exists) {
+            const loyaltyData = doc.data();
+            userLoyaltyData.points = loyaltyData.points || 0;
+            userLoyaltyData.rank = loyaltyData.rank || "Rookie Fan";
+            userLoyaltyData.permanentDiscount = loyaltyData.permanentDiscount || 0;
+            userLoyaltyData.jerseysPurchased = loyaltyData.jerseysPurchased || 0;
+            userLoyaltyData.unlockedCoupons = loyaltyData.unlockedCoupons || [];
+            userLoyaltyData.userName = loyaltyData.userName || 'Customer';
+            
+            // Update the UI with the latest data
+            updateUserRank(userLoyaltyData.points, userLoyaltyData.jerseysPurchased);
+            updateLoyaltyUI();
+            
+            console.log("Loyalty data updated in real-time:", userLoyaltyData);
+        }
+    }, (error) => {
+        console.error("Error setting up loyalty data listener:", error);
+    });
+}
         
 // DIAGNOSTIC CODE - Check if address elements exist
 console.log("Checking address elements...");
@@ -1611,29 +1713,32 @@ function generateOrderId() {
     return 'ORD' + Date.now() + Math.random().toString(36).substr(2, 5).toUpperCase();
 }
         
-        // Listen for auth state changes
-        auth.onAuthStateChanged((user) => {
-            if (user) {
-                // User is signed in
-                console.log("User is signed in:", user.uid);
-                
-                // Auto-redirect to store if user is already authenticated
-                if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-                    authSection.style.display = 'none';
-                    ecommerceSite.style.display = 'block';
-                    initStore();
-                }
-                
-                // Load user's cart from Firestore
-                loadUserCart(user.uid);
-            } else {
-                // User is signed out
-                console.log("User is signed out");
-                // Clear the cart when user signs out
-                cart = [];
-                updateCart();
-            }
-        });
+// Listen for auth state changes
+auth.onAuthStateChanged((user) => {
+    if (user) {
+        // User is signed in
+        console.log("User is signed in:", user.uid);
+        
+        // Auto-redirect to store if user is already authenticated
+        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+            authSection.style.display = 'none';
+            ecommerceSite.style.display = 'block';
+            initStore();
+            
+            // ADD THIS LINE: Set up real-time listener for loyalty data
+            setupLoyaltyDataListener(user.uid);
+        }
+        
+        // Load user's cart from Firestore
+        loadUserCart(user.uid);
+    } else {
+        // User is signed out
+        console.log("User is signed out");
+        // Clear the cart when user signs out
+        cart = [];
+        updateCart();
+    }
+});
         
         // Utility functions for authentication
         function validateEmail(email) {
@@ -2401,6 +2506,190 @@ if (auth.currentUser) {
     }
 };
 
+        // Leaderboard functionality
+        const leaderboardButton = document.getElementById('leaderboard-button');
+        const leaderboardModal = document.getElementById('leaderboard-modal');
+        const leaderboardOverlay = document.getElementById('leaderboard-overlay');
+        const closeLeaderboard = document.getElementById('close-leaderboard');
+        const leaderboardContent = document.getElementById('leaderboard-content');
+
+// Open leaderboard modal
+leaderboardButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    
+    // Check if user already has a username stored
+    if (auth.currentUser) {
+        const userLoyaltyRef = db.collection('userLoyalty').doc(auth.currentUser.uid);
+        
+        userLoyaltyRef.get().then((doc) => {
+            if (doc.exists && doc.data().userName) {
+                // User already has a username, show leaderboard directly
+                leaderboardModal.style.display = 'block';
+                leaderboardOverlay.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                loadLeaderboard();
+            } else {
+                // Prompt for username if not set
+                const username = prompt("Please enter your username to view the leaderboard:");
+                
+                if (username && username.trim() !== '') {
+                    // Save username to Firestore
+                    userLoyaltyRef.set({
+                        userName: username.trim()
+                    }, { merge: true }).then(() => {
+                        leaderboardModal.style.display = 'block';
+                        leaderboardOverlay.style.display = 'block';
+                        document.body.style.overflow = 'hidden';
+                        loadLeaderboard();
+                    });
+                } else {
+                    alert("Username is required to view the leaderboard.");
+                }
+            }
+        });
+    }
+});
+
+        // Close leaderboard modal
+        closeLeaderboard.addEventListener('click', closeLeaderboardModal);
+        leaderboardOverlay.addEventListener('click', closeLeaderboardModal);
+
+        function closeLeaderboardModal() {
+            leaderboardModal.style.display = 'none';
+            leaderboardOverlay.style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Load leaderboard data
+        function loadLeaderboard() {
+            leaderboardContent.innerHTML = `
+                <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                    <i class="fas fa-spinner fa-spin" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                    <p>Loading leaderboard...</p>
+                </div>
+            `;
+
+            // Query to get top 100 users by points
+            db.collection('userLoyalty')
+                .orderBy('points', 'desc')
+                .limit(100)
+                .get()
+                .then((querySnapshot) => {
+                    const leaderboardData = [];
+                    
+querySnapshot.forEach((doc) => {
+    const userData = doc.data();
+    leaderboardData.push({
+        id: doc.id,
+        name: userData.userName || 'Anonymous Fan',
+        points: userData.points || 0,
+        rank: userData.rank || 'Rookie Fan'
+    });
+});
+
+                    displayLeaderboard(leaderboardData);
+                })
+                .catch((error) => {
+                    console.error("Error loading leaderboard:", error);
+                    leaderboardContent.innerHTML = `
+                        <div style="text-align: center; padding: 2rem; color: #e53e3e;">
+                            <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 1rem;"></i>
+                            <p>Error loading leaderboard. Please try again.</p>
+                        </div>
+                    `;
+                });
+        }
+
+        // Display leaderboard data
+        function displayLeaderboard(users) {
+            let currentUserRank = null;
+            const currentUserId = auth.currentUser ? auth.currentUser.uid : null;
+            
+            // Find current user's rank
+            if (currentUserId) {
+                users.forEach((user, index) => {
+                    if (user.id === currentUserId) {
+                        currentUserRank = index + 1;
+                    }
+                });
+                
+                // If current user is not in top 100, calculate their rank
+                if (currentUserRank === null) {
+                    db.collection('userLoyalty')
+                        .where('points', '>', userLoyaltyData.points)
+                        .get()
+                        .then((snapshot) => {
+                            currentUserRank = snapshot.size + 1;
+                            renderLeaderboard(users, currentUserRank);
+                        });
+                    return;
+                }
+            }
+            
+            renderLeaderboard(users, currentUserRank);
+        }
+
+        // Render leaderboard UI
+        function renderLeaderboard(users, currentUserRank) {
+            let html = `
+                <div style="margin-bottom: 1.5rem;">
+                    <h3 style="color: var(--accent-secondary); text-align: center; margin-bottom: 1rem;">Top Fans</h3>
+            `;
+            
+            if (currentUserRank !== null) {
+                html += `
+                    <div style="background: rgba(126, 34, 206, 0.1); padding: 1rem; border-radius: 8px; margin-bottom: 1rem; border-left: 4px solid var(--accent);">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span>Your Rank:</span>
+                            <span style="font-weight: bold; color: var(--accent);">#${currentUserRank}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.5rem;">
+                            <span>Your Points:</span>
+                            <span style="font-weight: bold; color: var(--accent-secondary);">${userLoyaltyData.points}</span>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            html += `<div style="max-height: 300px; overflow-y: auto;">`;
+            
+            if (users.length === 0) {
+                html += `
+                    <div style="text-align: center; padding: 2rem; color: var(--text-secondary);">
+                        <i class="fas fa-trophy" style="font-size: 2rem; margin-bottom: 1rem; color: #FFD700;"></i>
+                        <p>No users on the leaderboard yet. Be the first!</p>
+                    </div>
+                `;
+            } else {
+                users.forEach((user, index) => {
+                    const isCurrentUser = auth.currentUser && user.id === auth.currentUser.uid;
+                    const rank = index + 1;
+                    
+                    html += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; 
+                                    padding: 0.8rem; margin-bottom: 0.5rem; 
+                                    border-radius: 5px;
+                                    ${isCurrentUser ? 'background: rgba(126, 34, 206, 0.2); border-left: 3px solid var(--accent);' : 'background: var(--card-bg);'}">
+                            <div style="display: flex; align-items: center; gap: 1rem;">
+                                <span style="font-weight: bold; width: 30px; text-align: center; 
+                                            ${rank === 1 ? 'color: #FFD700;' : rank === 2 ? 'color: #C0C0C0;' : rank === 3 ? 'color: #CD7F32;' : 'color: var(--text-primary);'}">
+                                    ${rank}
+                                </span>
+                                <div>
+                                    <div style="font-weight: 500; ${isCurrentUser ? 'color: var(--accent);' : 'color: var(--text-primary);'}">${user.name}</div>
+                                    <div style="font-size: 0.8rem; color: var(--text-secondary);">${user.rank}</div>
+                                </div>
+                            </div>
+                            <span style="font-weight: bold; color: var(--accent-secondary);">${user.points} pts</span>
+                        </div>
+                    `;
+                });
+            }
+            
+            html += `</div></div>`;
+            leaderboardContent.innerHTML = html;
+        }
+
 // Initialize the store
 function initStore() {
     renderProducts('jerseys', products.jerseys);
@@ -3094,11 +3383,8 @@ function showAllRewards() {
 function initLoyaltyProgram() {
     // Load user loyalty data from Firestore if logged in
     if (auth.currentUser) {
-        // Move the loadUserLoyaltyData function definition BEFORE this call
-        // or use a function expression that gets hoisted
-        if (typeof loadUserLoyaltyData === 'function') {
-            loadUserLoyaltyData(auth.currentUser.uid);
-        }
+        loadUserLoyaltyData(auth.currentUser.uid);
+        setupLoyaltyDataListener(auth.currentUser.uid); // Add real-time listener
     }
     
     // Add event listeners
