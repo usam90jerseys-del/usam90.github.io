@@ -1483,7 +1483,7 @@ function loadUserLoyaltyData(userId) {
             userLoyaltyData.userName = 'Customer';
             
             // Save the initial data to Firestore
-            saveLoyaltyDataToFirestore(userId, userLoyaltyData);
+            saveLoyaltyDataToFirestore(userId, userLoyaltyData, true);
             updateUserRank(0, 0);
             updateLoyaltyUI();
         }
@@ -1492,31 +1492,11 @@ function loadUserLoyaltyData(userId) {
     });
 }
 
-// Add real-time listener for loyalty data updates
-function setupLoyaltyDataListener(userId) {
-    const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
-    
-    userLoyaltyRef.onSnapshot((doc) => {
-        if (doc.exists) {
-            const loyaltyData = doc.data();
-            userLoyaltyData.points = loyaltyData.points || 0;
-            userLoyaltyData.rank = loyaltyData.rank || "Rookie Fan";
-            userLoyaltyData.permanentDiscount = loyaltyData.permanentDiscount || 0;
-            userLoyaltyData.jerseysPurchased = loyaltyData.jerseysPurchased || 0;
-            userLoyaltyData.unlockedCoupons = loyaltyData.unlockedCoupons || [];
-            userLoyaltyData.userName = loyaltyData.userName || 'Customer';
-            
-            // Update the UI with the latest data
-            updateUserRank(userLoyaltyData.points, userLoyaltyData.jerseysPurchased);
-            updateLoyaltyUI();
-            
-            console.log("Loyalty data updated in real-time:", userLoyaltyData);
-        }
-    }, (error) => {
-        console.error("Error setting up loyalty data listener:", error);
-    });
-}
-        
+// Load loyalty data when needed (not real-time)
+function loadLoyaltyDataWhenNeeded(userId) {
+    loadUserLoyaltyData(userId);
+} 
+       
 // DIAGNOSTIC CODE - Check if address elements exist
 console.log("Checking address elements...");
 console.log("address-form:", document.getElementById('address-form'));
@@ -1725,8 +1705,8 @@ auth.onAuthStateChanged((user) => {
             ecommerceSite.style.display = 'block';
             initStore();
             
-            // ADD THIS LINE: Set up real-time listener for loyalty data
-            setupLoyaltyDataListener(user.uid);
+            // Load loyalty data once on page load
+            loadLoyaltyDataWhenNeeded(user.uid);
         }
         
         // Load user's cart from Firestore
@@ -3384,12 +3364,15 @@ function initLoyaltyProgram() {
     // Load user loyalty data from Firestore if logged in
     if (auth.currentUser) {
         loadUserLoyaltyData(auth.currentUser.uid);
-        setupLoyaltyDataListener(auth.currentUser.uid); // Add real-time listener
     }
     
     // Add event listeners
     document.getElementById('profile-button').addEventListener('click', (e) => {
         e.preventDefault();
+        // Refresh data when profile is opened
+        if (auth.currentUser) {
+            loadUserLoyaltyData(auth.currentUser.uid);
+        }
         showLoyaltyProfile();
     });
     
@@ -3402,18 +3385,25 @@ function initLoyaltyProgram() {
         // Save cart to Firestore
         function saveCartToFirestore(userId, cartItems) {
 
-// Save loyalty data to Firestore
-function saveLoyaltyDataToFirestore(userId, loyaltyData) {
+// Save loyalty data to Firestore (only update timestamp when data actually changes)
+function saveLoyaltyDataToFirestore(userId, loyaltyData, forceTimestampUpdate = false) {
     const userLoyaltyRef = db.collection('userLoyalty').doc(userId);
     
-    userLoyaltyRef.set({
+    const updateData = {
         points: loyaltyData.points,
         rank: loyaltyData.rank,
         permanentDiscount: loyaltyData.permanentDiscount,
         jerseysPurchased: loyaltyData.jerseysPurchased,
         unlockedCoupons: loyaltyData.unlockedCoupons,
-        lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
-    })
+        userName: loyaltyData.userName || 'Customer'
+    };
+    
+    // Only update timestamp when forced (data actually changed) or on significant events
+    if (forceTimestampUpdate) {
+        updateData.lastUpdated = firebase.firestore.FieldValue.serverTimestamp();
+    }
+    
+    userLoyaltyRef.set(updateData)
     .then(() => {
         console.log("Loyalty data successfully saved to Firestore!");
     })
