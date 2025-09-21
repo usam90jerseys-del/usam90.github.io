@@ -155,112 +155,6 @@
             left: 0;
         }
         
-        /* Animated Elements */
-        .circle {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(126, 34, 206, 0.15);
-            animation: float 12s infinite ease-in-out;
-        }
-        
-        .circle:nth-child(1) {
-            width: 250px;
-            height: 250px;
-            top: -50px;
-            left: -50px;
-            animation-delay: 0s;
-        }
-        
-        .circle:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            bottom: 100px;
-            right: 100px;
-            animation-delay: 2s;
-        }
-        
-        .circle:nth-child(3) {
-            width: 150px;
-            height: 150px;
-            top: 150px;
-            right: 200px;
-            animation-delay: 4s;
-        }
-        
-        .circle:nth-child(4) {
-            width: 100px;
-            height: 100px;
-            bottom: 200px;
-            left: 150px;
-            animation-delay: 6s;
-        }
-        
-        .square {
-            position: absolute;
-            background: rgba(59, 130, 246, 0.1);
-            animation: rotate 20s infinite linear;
-        }
-        
-        .square:nth-child(5) {
-            width: 120px;
-            height: 120px;
-            top: 100px;
-            left: 150px;
-            animation-delay: 0s;
-        }
-        
-        .square:nth-child(6) {
-            width: 80px;
-            height: 80px;
-            bottom: 150px;
-            right: 200px;
-            animation-delay: 5s;
-        }
-        
-        .triangle {
-            position: absolute;
-            width: 0;
-            height: 0;
-            border-style: solid;
-            animation: pulse 8s infinite ease-in-out;
-        }
-        
-        .triangle:nth-child(7) {
-            border-width: 0 60px 100px 60px;
-            border-color: transparent transparent rgba(126, 34, 206, 0.2) transparent;
-            top: 200px;
-            right: 100px;
-            animation-delay: 1s;
-        }
-        
-        .triangle:nth-child(8) {
-            border-width: 100px 60px 0 60px;
-            border-color: rgba(59, 130, 246, 0.2) transparent transparent transparent;
-            bottom: 100px;
-            left: 200px;
-            animation-delay: 3s;
-        }
-        
-        .wave {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 100px;
-            background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1200 120" xmlns="http://www.w3.org/2000/svg" fill="%237e22ce33"><path d="M0 0v46.29c47.79 22.2 103.59 32.17 158 28 70.36-5.37 136.33-33.31 206.8-37.5 73.84-4.36 147.54 16.88 218.2 35.26 69.27 18 138.3 24.88 209.4 13.08 36.15-6 69.85-17.84 104.45-29.34C989.49 25 1113-14.29 1200 52.47V0z" /></svg>');
-            background-size: cover;
-            animation: wave 15s infinite linear;
-        }
-        
-        .wave:nth-child(9) {
-            opacity: 0.3;
-            animation-delay: 0s;
-        }
-        
-        .wave:nth-child(10) {
-            opacity: 0.5;
-            animation-delay: -5s;
-        }
         
         .content {
             position: relative;
@@ -351,63 +245,6 @@
             display: none;
         }
         
-        /* Animated background elements */
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            overflow: hidden;
-        }
-        
-        .bg-circle {
-            position: absolute;
-            border-radius: 50%;
-            opacity: 0.1;
-            animation: float 15s infinite linear;
-        }
-        
-        .bg-circle:nth-child(1) {
-            width: 300px;
-            height: 300px;
-            background: var(--accent);
-            top: 10%;
-            left: 5%;
-            animation-delay: 0s;
-            animation-duration: 25s;
-        }
-        
-        .bg-circle:nth-child(2) {
-            width: 200px;
-            height: 200px;
-            background: var(--accent-secondary);
-            top: 70%;
-            left: 80%;
-            animation-delay: -5s;
-            animation-duration: 20s;
-        }
-        
-        .bg-circle:nth-child(3) {
-            width: 400px;
-            height: 400px;
-            background: var(--accent);
-            top: 30%;
-            left: 70%;
-            animation-delay: -10s;
-            animation-duration: 30s;
-        }
-        
-        .bg-circle:nth-child(4) {
-            width: 250px;
-            height: 250px;
-            background: var(--accent-secondary);
-            top: 60%;
-            left: 10%;
-            animation-delay: -15s;
-            animation-duration: 22s;
-        }
         
         /* Header styles */
         header {
@@ -1261,13 +1098,7 @@
 
     <!-- E-COMMERCE SECTION (Initially Hidden) -->
     <div id="ecommerce-site" class="ecommerce-site">
-        <!-- Animated background -->
-        <div class="bg-animation">
-            <div class="bg-circle"></div>
-            <div class="bg-circle"></div>
-            <div class="bg-circle"></div>
-            <div class="bg-circle"></div>
-        </div>
+
 
         <!-- Header -->
         <header>
