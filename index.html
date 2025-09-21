@@ -11,6 +11,11 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
+    <!-- Vanta.js Background Effects -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+
     <style>
         /* AUTHENTICATION STYLES */
         * {
@@ -28,14 +33,12 @@
         }
         
         .auth-container {
-            width: 90%;
-            max-width: 1200px;
-            height: 700px;
+            width: 100%;
+            height: 100vh;
             display: flex;
-            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
-            margin: 40px auto;
+            margin: 0;
+            border-radius: 0;
         }
         
         /* Left Section - Auth Forms */
@@ -1075,6 +1078,76 @@
             .cart-section {
                 width: 85%;
             }
+
+/* Hamburger Menu Styles */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 30px;
+    height: 25px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.hamburger span {
+    width: 100%;
+    height: 3px;
+    background-color: var(--text-primary);
+    border-radius: 5px;
+    transition: all 0.3s linear;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        position: fixed;
+        top: 70px;
+        right: -100%;
+        flex-direction: column;
+        background-color: var(--darker-bg);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
+        padding: 2rem 0;
+        z-index: 999;
+    }
+    
+    .nav-menu.active {
+        right: 0;
+    }
+    
+    nav ul {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .hamburger {
+        display: flex;
+    }
+    
+    .nav-menu {
+        top: 60px;
+    }
+    
+    header {
+        padding: 1rem;
+    }
+}
+
         }
     </style>
 </head>
@@ -1154,21 +1227,9 @@
                 </div>
             </div>
             
-            <!-- Right Section - Animated Background -->
-            <div class="right-section">
-                <!-- Animated background elements -->
-                <div class="animation-container">
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="circle"></div>
-                    <div class="square"></div>
-                    <div class="square"></div>
-                    <div class="triangle"></div>
-                    <div class="triangle"></div>
-                    <div class="wave"></div>
-                    <div class="wave"></div>
-                </div>
+            <!-- Right Section - Vanta.js Background -->
+            <div class="right-section" id="vanta-bg">
+                
                 
                 <!-- Content overlay -->
                 <div class="content">
@@ -1215,25 +1276,32 @@
                 <span>USAM 90'</span>
             </div>
 <nav>
-    <ul>
-        <li><a href="#jerseys">Jerseys</a></li>
-        <li><a href="#boots">Boots</a></li>
-        <li><a href="#kits">Kits</a></li>
-        <li><a href="#rewards" id="rewards-button">Rewards</a></li>
-        <li><a href="#" id="support-button">Support</a></li>
-        <li><a href="#" id="leaderboard-button">Leaderboard</a></li>
-        <li><a href="#cart" class="cart-icon" id="cart-button">
-            <i class="fas fa-shopping-cart"></i>
-            <span class="cart-count">0</span>
-        </a></li>
-        <li>
-            <a href="#" id="profile-button">
-                <i class="fas fa-user"></i>
-                <span id="user-points">0 pts</span>
-            </a>
-        </li>
-        <li><a href="#" id="logout-btn">Logout</a></li>
-    </ul>
+    <div class="nav-container">
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#jerseys">Jerseys</a></li>
+            <li><a href="#boots">Boots</a></li>
+            <li><a href="#kits">Kits</a></li>
+            <li><a href="#rewards" id="rewards-button">Rewards</a></li>
+            <li><a href="#" id="support-button">Support</a></li>
+            <li><a href="#" id="leaderboard-button">Leaderboard</a></li>
+            <li><a href="#cart" class="cart-icon" id="cart-button">
+                <i class="fas fa-shopping-cart"></i>
+                <span class="cart-count">0</span>
+            </a></li>
+            <li>
+                <a href="#" id="profile-button">
+                    <i class="fas fa-user"></i>
+                    <span id="user-points">0 pts</span>
+                </a>
+            </li>
+            <li><a href="#" id="logout-btn">Logout</a></li>
+        </ul>
+    </div>
 </nav>
         </header>
 
@@ -3599,6 +3667,66 @@ function goToSlide(productId, section, index) {
         slider.style.transform = `translateX(-${index * 100}%)`;
     }
 }
+
+// Hamburger menu functionality
+const hamburger = document.getElementById('hamburger');
+const navMenu = document.getElementById('nav-menu');
+
+if (hamburger && navMenu) {
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('active');
+        hamburger.classList.toggle('active');
+    });
+    
+    // Close menu when clicking on a link
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        });
+    });
+}
+
+        // Initialize Vanta.js background effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Waves effect for authentication page
+            if (document.getElementById('vanta-bg')) {
+                VANTA.WAVES({
+                    el: '#vanta-bg',
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 1.00,
+                    color: 0x2a5b,
+                    shininess: 150.00,
+                    waveHeight: 16.50,
+                    waveSpeed: 1.10,
+                    zoom: 0.82
+                });
+            }
+            
+            // Net effect for ecommerce site background
+            if (document.querySelector('.bg-animation')) {
+                VANTA.NET({
+                    el: '.bg-animation',
+                    mouseControls: true,
+                    touchControls: true,
+                    gyroControls: false,
+                    minHeight: 200.00,
+                    minWidth: 200.00,
+                    scale: 1.00,
+                    scaleMobile: 1.00,
+                    color: 0x7e22ce,
+                    backgroundColor: 0x0a0e17,
+                    points: 10.00,
+                    maxDistance: 25.00,
+                    spacing: 18.00
+                });
+            }
+        });
 
     </script>
 </body>
