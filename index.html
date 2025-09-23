@@ -11,11 +11,6 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     
-    <!-- Vanta.js Background Effects -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
-
     <style>
         /* AUTHENTICATION STYLES */
         * {
@@ -25,12 +20,12 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
-        body {
-            background: #0a0e17;
-            color: #fff;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+body {
+    background: #ffffff;
+    color: #1f2937; 
+    min-height: 100vh;
+    overflow-x: hidden;
+}
         
         .auth-container {
             width: 100%;
@@ -42,34 +37,35 @@
         }
         
         /* Left Section - Auth Forms */
-        .left-section {
-            width: 40%;
-            background: linear-gradient(135deg, #0d1226 0%, #1a1f3a 100%);
-            padding: 40px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            position: relative;
-            z-index: 2;
-        }
+.left-section {
+    width: 40%;
+    background: linear-gradient(135deg, #f9fafb 0%, #ffffff 100%); /* Changed gradient */
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    border-right: 1px solid var(--border-color); /* Added border */
+}
         
         .logo {
             text-align: center;
             margin-bottom: 40px;
         }
         
-        .logo h1 {
-            font-size: 32px;
-            background: linear-gradient(90deg, #7e22ce, #3b82f6);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 10px;
-        }
-        
-        .logo p {
-            color: #a0aec0;
-            font-size: 16px;
-        }
+.logo h1 {
+    font-size: 32px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6); /* Changed colors */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+}
+
+.logo p {
+    color: #6b7280; /* Changed from #a0aec0 */
+    font-size: 16px;
+}
         
         .form-container {
             transition: transform 0.5s ease, opacity 0.5s ease;
@@ -79,23 +75,23 @@
             margin-bottom: 25px;
         }
         
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 500;
-            color: #cbd5e0;
-        }
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #4b5563; /* Changed from #cbd5e0 */
+}
         
-        .form-group input {
-            width: 100%;
-            padding: 15px;
-            background: #1e293b;
-            color: #fff;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
+.form-group input {
+    width: 100%;
+    padding: 15px;
+    background: #ffffff; /* Changed from #1e293b */
+    color: #1f2937; /* Changed from #fff */
+    border: 1px solid #d1d5db; /* Changed from #334155 */
+    border-radius: 8px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
         
         .form-group input:focus {
             border-color: #7e22ce;
@@ -103,18 +99,18 @@
             box-shadow: 0 0 0 3px rgba(126, 34, 206, 0.3);
         }
         
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(90deg, #7e22ce, #3b82f6);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
+.btn {
+    width: 100%;
+    padding: 15px;
+    background: linear-gradient(90deg, #2563eb, #3b82f6);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
         
         .btn:hover {
             transform: translateY(-2px);
@@ -140,12 +136,12 @@
         }
         
         /* Right Section - Animated Background */
-        .right-section {
-            width: 60%;
-            background: linear-gradient(135deg, #000000 0%, #2d1b69 100%);
-            position: relative;
-            overflow: hidden;
-        }
+.right-section {
+    width: 60%;
+    background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); /* Changed gradient */
+    position: relative;
+    overflow: hidden;
+}
         
         .animation-container {
             position: absolute;
@@ -154,7 +150,6 @@
             top: 0;
             left: 0;
         }
-        
         
         .content {
             position: relative;
@@ -179,15 +174,15 @@
             margin-right: 15px;
         }
         
-        .feature-text h3 {
-            font-size: 22px;
-            margin-bottom: 5px;
-            color: #fff;
-        }
-        
-        .feature-text p {
-            color: #cbd5e0;
-        }
+.feature-text h3 {
+    font-size: 22px;
+    margin-bottom: 5px;
+    color: #1f2937; 
+}
+
+.feature-text p {
+    color: #6b7280; 
+}
         
         /* Success Message */
         .success-container {
@@ -231,33 +226,39 @@
         }
         
         /* E-COMMERCE STYLES */
-        :root {
-            --dark-bg: #121212;
-            --darker-bg: #0a0a0a;
-            --card-bg: #1e1e1e;
-            --accent: #bb86fc;
-            --accent-secondary: #03dac6;
-            --text-primary: #f5f5f5;
-            --text-secondary: #a0aec0;
-        }
+:root {
+    --light-bg: #ffffff;
+    --light-secondary: #f8f9fa;
+    --card-bg: #ffffff;
+    --accent: #2563eb;
+    --accent-secondary: #0891b2;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --border-color: #e5e7eb;
+    --darker-bg: #ffffff; 
+    --dark-bg: #f8f9fa;   
+}
         
-        .ecommerce-site {
+         .ecommerce-site {
             display: none;
+            position: relative;
+            z-index: 1;
         }
         
         
         /* Header styles */
-        header {
-            background-color: var(--darker-bg);
-            padding: 1.2rem 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-        }
+header {
+    background-color: #ffffff; 
+    padding: 1.2rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    border-bottom: 1px solid var(--border-color);
+}
         
         .store-logo {
             display: flex;
@@ -399,15 +400,16 @@
             margin-bottom: 3rem;
         }
         
-        .product-card {
-            background-color: var(--card-bg);
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeIn 0.5s forwards;
-            opacity: 0;
-        }
+.product-card {
+    background-color: #ffffff; 
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); 
+    transition: transform 0.3s, box-shadow 0.3s;
+    animation: fadeIn 0.5s forwards;
+    opacity: 0;
+    border: 1px solid var(--border-color);
+}
         
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -537,7 +539,7 @@
         }
         
         .size-btn {
-            background: var(--darker-bg);
+            background: var(--dark-bg);
             border: none;
             color: var(--text-primary);
             width: 30px;
@@ -570,19 +572,20 @@
         }
         
         /* Cart styles */
-        .cart-section {
-            position: fixed;
-            top: 0;
-            right: -400px;
-            width: 350px;
-            height: 100vh;
-            background: var(--darker-bg);
-            z-index: 101;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-            transition: right 0.4s ease-out;
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
+.cart-section {
+    position: fixed;
+    top: 0;
+    right: -400px;
+    width: 350px;
+    height: 100vh;
+    background: #ffffff; 
+    z-index: 101;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1); 
+    transition: right 0.4s ease-out;
+    padding: 1.5rem;
+    overflow-y: auto;
+    border-left: 1px solid var(--border-color);
+}
         
         .cart-section.open {
             right: 0;
@@ -827,18 +830,45 @@
             font-weight: bold;
         }
 
-        #loyalty-profile-modal h2,
-        #rewards-modal h2 {
-            color: var(--accent);
-            margin-bottom: 1.5rem;
-            text-align: center;
-        }
+#loyalty-profile-modal h2,
+#rewards-modal h2 {
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
 
-        #loyalty-profile-modal h3,
-        #rewards-modal h3 {
-            color: var(--accent-secondary);
-            margin-bottom: 1rem;
-        }
+#loyalty-profile-modal h3,
+#rewards-modal h3 {
+    color: var(--accent-secondary);
+    margin-bottom: 1rem;
+}
+
+/* Add background to modals */
+#loyalty-profile-modal,
+#rewards-modal,
+#support-modal,
+#leaderboard-modal {
+    background: #ffffff !important;
+    color: #1f2937;
+}
+
+#loyalty-profile-modal p,
+#loyalty-profile-modal span,
+#rewards-modal p,
+#rewards-modal span,
+#support-modal p,
+#support-modal span,
+#leaderboard-modal p,
+#leaderboard-modal span {
+    color: #1f2937 !important;
+}
+
+#close-profile,
+#close-rewards,
+#close-support,
+#close-leaderboard {
+    color: #1f2937 !important;
+}
 
         #close-profile,
         #close-rewards {
@@ -847,7 +877,7 @@
             right: -10px;
             background: none;
             border: none;
-            color: white;
+            color: var(--text-primary);
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -1064,35 +1094,32 @@
                 </div>
             </div>
             
-            <!-- Right Section - Vanta.js Background -->
-            <div class="right-section" id="vanta-bg">
-                
-                
-                <!-- Content overlay -->
-                <div class="content">
-                    <div class="feature">
-                        <i class="fas fa-shield-alt"></i>
-                        <div class="feature-text">
-                            <h3>Secure Authentication</h3>
-                            <p>Your data is protected with industry-standard encryption</p>
-                        </div>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-truck"></i>
-                        <div class="feature-text">
-                            <h3>Fast Delivery</h3>
-                            <p>Get your favorite jerseys delivered to your doorstep</p>
-                        </div>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-percent"></i>
-                        <div class="feature-text">
-                            <h3>Exclusive Discounts</h3>
-                            <p>Special offers for registered members only</p>
-                        </div>
-                    </div>
-                </div>
+<!-- Right Section - Updated Content -->
+<div class="right-section">
+    <div class="content">
+        <div class="feature">
+            <i class="fas fa-shield-alt" style="color: #2563eb;"></i>
+            <div class="feature-text">
+                <h3>Secure Authentication</h3>
+                <p>Your data is protected with industry-standard encryption</p>
             </div>
+        </div>
+        <div class="feature">
+            <i class="fas fa-truck" style="color: #2563eb;"></i>
+            <div class="feature-text">
+                <h3>Fast Delivery</h3>
+                <p>Get your favorite jerseys delivered to your doorstep</p>
+            </div>
+        </div>
+        <div class="feature">
+            <i class="fas fa-percent" style="color: #2563eb;"></i>
+            <div class="feature-text">
+                <h3>Exclusive Discounts</h3>
+                <p>Special offers for registered members only</p>
+            </div>
+        </div>
+    </div>
+</div>
         </div>
     </div>
 
@@ -2389,6 +2416,11 @@ if (auth.currentUser) {
         // Leaderboard functionality
         const leaderboardButton = document.getElementById('leaderboard-button');
         const leaderboardModal = document.getElementById('leaderboard-modal');
+// Set background color for leaderboard modal
+if (leaderboardModal) {
+    leaderboardModal.style.backgroundColor = '#ffffff';
+    leaderboardModal.style.color = '#1f2937';
+}
         const leaderboardOverlay = document.getElementById('leaderboard-overlay');
         const closeLeaderboard = document.getElementById('close-leaderboard');
         const leaderboardContent = document.getElementById('leaderboard-content');
@@ -2799,6 +2831,11 @@ cartItem.innerHTML = `
             // Support System Functionality
         const supportButton = document.getElementById('support-button');
         const supportModal = document.getElementById('support-modal');
+// Set background color for support modal
+if (supportModal) {
+    supportModal.style.backgroundColor = '#ffffff';
+    supportModal.style.color = '#1f2937';
+}
         const supportOverlay = document.getElementById('support-overlay');
         const closeSupport = document.getElementById('close-support');
         const submitSupport = document.getElementById('submit-support');
@@ -3518,46 +3555,25 @@ if (hamburger && navMenu) {
     });
 }
 
-        // Initialize Vanta.js background effects
-        document.addEventListener('DOMContentLoaded', function() {
-            // Waves effect for authentication page
-            if (document.getElementById('vanta-bg')) {
-                VANTA.WAVES({
-                    el: '#vanta-bg',
-                    mouseControls: true,
-                    touchControls: true,
-                    gyroControls: false,
-                    minHeight: 200.00,
-                    minWidth: 200.00,
-                    scale: 1.00,
-                    scaleMobile: 1.00,
-                    color: 0x2a5b,
-                    shininess: 150.00,
-                    waveHeight: 16.50,
-                    waveSpeed: 1.10,
-                    zoom: 0.82
-                });
-            }
-            
-            // Net effect for ecommerce site background
-            if (document.querySelector('.bg-animation')) {
-                VANTA.NET({
-                    el: '.bg-animation',
-                    mouseControls: true,
-                    touchControls: true,
-                    gyroControls: false,
-                    minHeight: 200.00,
-                    minWidth: 200.00,
-                    scale: 1.00,
-                    scaleMobile: 1.00,
-                    color: 0x7e22ce,
-                    backgroundColor: 0x0a0e17,
-                    points: 10.00,
-                    maxDistance: 25.00,
-                    spacing: 18.00
-                });
-            }
+// Initialize Vanta.js background effects
+document.addEventListener('DOMContentLoaded', function() {
+    // Birds effect for authentication page
+    if (document.getElementById('vanta-bg')) {
+        VANTA.BIRDS({
+            el: '#vanta-bg',
+            mouseControls: true,
+            touchControls: true,
+            gyroControls: false,
+            minHeight: 200.00,
+            minWidth: 200.00,
+            scale: 1.00,
+            scaleMobile: 1.00,
+            backgroundColor: 0x97a4c5,
+            color1: 0xd46565,
+            color2: 0xffffff
         });
+    }
+});
 
     </script>
 </body>
