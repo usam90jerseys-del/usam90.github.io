@@ -980,19 +980,21 @@ header {
     .nav-menu {
         position: fixed;
         top: 70px;
-        right: -100%;
+        right: -300px; /* Start off-screen to the right */
         flex-direction: column;
         background-color: var(--darker-bg);
-        width: 100%;
-        text-align: center;
+        width: 280px; /* Fixed width instead of 100% */
+        text-align: left; /* Align text to left */
         transition: 0.3s;
-        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.05);
-        padding: 2rem 0;
+        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1); /* Shadow on left side */
+        padding: 1.5rem;
         z-index: 999;
+        height: calc(100vh - 70px); /* Full height but not overlapping header */
+        overflow-y: auto; /* Scroll if content is too long */
     }
     
     .nav-menu.active {
-        right: 0;
+        right: 0; /* Slide in from right */
     }
     
     nav ul {
@@ -1008,6 +1010,7 @@ header {
     
     .nav-menu {
         top: 60px;
+        width: 250px; /* Slightly smaller on mobile */
     }
     
     header {
@@ -2880,15 +2883,15 @@ if (supportModal) {
 
             if (auth.currentUser) {
                 const user = auth.currentUser;
-                const ticketData = {
-                    userId: user.uid,
-                    userEmail: user.email,
-                    userName: document.getElementById('signup-name')?.value || 'Customer',
-                    subject: subject,
-                    message: message,
-                    status: 'new',
-                    createdAt: firebase.firestore.FieldValue.serverTimestamp()
-                };
+const ticketData = {
+    userId: user.uid,
+    userEmail: user.email,
+    userName: userLoyaltyData.userName || 'Customer',
+    subject: subject,
+    message: message,
+    status: 'new',
+    createdAt: firebase.firestore.FieldValue.serverTimestamp()
+};
 
                 // Save to Firestore - you can manually check these in Firebase Console
                 db.collection('supportTickets').add(ticketData)
@@ -3546,13 +3549,24 @@ if (hamburger && navMenu) {
         hamburger.classList.toggle('active');
     });
     
-    // Close menu when clicking on a link
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.addEventListener('click', () => {
-            navMenu.classList.remove('active');
-            hamburger.classList.remove('active');
-        });
+// Close menu when clicking on a link
+document.querySelectorAll('.nav-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
     });
+});
+
+// Close menu when clicking anywhere outside of it
+document.addEventListener('click', (e) => {
+    const isClickInsideMenu = navMenu.contains(e.target);
+    const isClickOnHamburger = hamburger.contains(e.target);
+    
+    if (navMenu.classList.contains('active') && !isClickInsideMenu && !isClickOnHamburger) {
+        navMenu.classList.remove('active');
+        hamburger.classList.remove('active');
+    }
+});
 }
 
 // Initialize Vanta.js background effects
