@@ -575,8 +575,9 @@ header {
 .cart-section {
     position: fixed;
     top: 0;
-    right: -400px;
-    width: 350px;
+    right: -100%;
+    width: 85%;
+    max-width: 350px;
     height: 100vh;
     background: #ffffff; 
     z-index: 101;
@@ -1426,12 +1427,6 @@ function loadLoyaltyDataWhenNeeded(userId) {
     loadUserLoyaltyData(userId);
 } 
        
-// DIAGNOSTIC CODE - Check if address elements exist
-console.log("Checking address elements...");
-console.log("address-form:", document.getElementById('address-form'));
-console.log("add-address-btn:", document.getElementById('add-address-btn'));
-console.log("saved-addresses:", document.getElementById('saved-addresses'));
-console.log("checkout-btn:", document.getElementById('checkout-btn'));
 
         // DOM Elements for Authentication
         const authSection = document.getElementById('auth-section');
@@ -1783,9 +1778,7 @@ auth.onAuthStateChanged((user) => {
 
 
                             ],
-            boots: [
-                
-            ],
+            boots: [],
             kits: [ 
                 { 
                   id: 1, 
@@ -3568,26 +3561,6 @@ document.addEventListener('click', (e) => {
     }
 });
 }
-
-// Initialize Vanta.js background effects
-document.addEventListener('DOMContentLoaded', function() {
-    // Birds effect for authentication page
-    if (document.getElementById('vanta-bg')) {
-        VANTA.BIRDS({
-            el: '#vanta-bg',
-            mouseControls: true,
-            touchControls: true,
-            gyroControls: false,
-            minHeight: 200.00,
-            minWidth: 200.00,
-            scale: 1.00,
-            scaleMobile: 1.00,
-            backgroundColor: 0x97a4c5,
-            color1: 0xd46565,
-            color2: 0xffffff
-        });
-    }
-});
 
     </script>
 </body>
