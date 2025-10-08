@@ -697,61 +697,15 @@ header {
             visibility: visible;
         }
         
-        /* Animations */
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0);
-            }
-            25% {
-                transform: translateY(-20px) translateX(10px);
-            }
-            50% {
-                transform: translateY(10px) translateX(20px);
-            }
-            75% {
-                transform: translateY(20px) translateX(-10px);
-            }
-        }
-        
-        @keyframes rotate {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-        
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                opacity: 0.7;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.4;
-            }
-        }
-        
-        @keyframes wave {
-            0% {
-                background-position-x: 0;
-            }
-            100% {
-                background-position-x: 1200px;
-            }
-        }
-        
-        @keyframes scaleUp {
-            0% {
-                transform: scale(0);
-                opacity: 0;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
-        }
+/* Animations */
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+}
         
         /* Form transition animations */
         .form-hidden {
@@ -3461,6 +3415,7 @@ function loadUserLoyaltyData(userId) {
             
             userCartRef.set({
                 items: cartItems,
+                appliedCoupon: appliedCoupon, // Save the coupon state
                 lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
             })
             .then(() => {
@@ -3472,24 +3427,37 @@ function loadUserLoyaltyData(userId) {
         }
 
         // Load user cart from Firestore
-        function loadUserCart(userId) {
-            const userCartRef = db.collection('carts').doc(userId);
+function loadUserCart(userId) {
+    const userCartRef = db.collection('carts').doc(userId);
+    
+    userCartRef.get().then((doc) => {
+        if (doc.exists) {
+            const cartData = doc.data();
+            console.log("Loaded cart:", cartData.items);
+            cart = cartData.items || [];
+            appliedCoupon = cartData.appliedCoupon || null; // Load the coupon state
+            updateCart();
             
-            userCartRef.get().then((doc) => {
-                if (doc.exists) {
-                    const cartData = doc.data();
-                    console.log("Loaded cart:", cartData.items);
-                    cart = cartData.items || [];
-                    updateCart();
-                } else {
-                    console.log("No existing cart found. Starting fresh.");
-                    cart = [];
-                    updateCart();
-                }
-            }).catch((error) => {
-                console.error("Error loading cart:", error);
-            });
+            // Force update coupon display after cart is loaded
+            setTimeout(() => {
+                const currentTotal = calculateTotal();
+                updateCouponDisplay(currentTotal);
+            }, 100);
+        } else {
+            console.log("No existing cart found. Starting fresh.");
+            cart = [];
+            appliedCoupon = null;
+            updateCart();
+            
+            // Force update coupon display for empty cart
+            setTimeout(() => {
+                updateCouponDisplay(0);
+            }, 100);
         }
+    }).catch((error) => {
+        console.error("Error loading cart:", error);
+    });
+}
 
         // Search functionality
         searchInput.addEventListener('input', () => {
